@@ -1,0 +1,28 @@
+name: "Жалоба на источник GitHub"
+description: "Сообщите о проблеме с поиском аддинов, каталогом или распространением пакетов из источника GitHub."
+title: "[Жалоба на источник] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        После отправки жалоба станет публичной. Проверьте заполненные поля и уберите токены, персональные данные, локальные пути и необезличенные журналы. Для уязвимостей и конфиденциальных сведений используйте [инструкции по закрытой отправке](https://github.com/4FusionLab/CommunityStore/blob/main/SECURITY.ru.md).
+
+        Например, отсутствующие или неожиданные карточки, вводящие в заблуждение сведения о владельце или подозрительные релизы источника. Если возможно, добавьте ссылки на публичные репозитории.
+  - type: input
+    id: github-owner
+    attributes:
+      label: "Владелец источника GitHub"
+      description: "Аккаунт или организация GitHub из списка источников Community Store."
+    validations:
+      required: true
+  - type: input
+    id: store-version
+    attributes:
+      label: "Версия Community Store"
+  - type: textarea
+    id: details
+    attributes:
+      label: "Что произошло?"
+      description: "Опишите проблему, ожидаемый результат и, если возможно, шаги воспроизведения."
+    validations:
+      required: true

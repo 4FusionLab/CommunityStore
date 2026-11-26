@@ -1,0 +1,28 @@
+name: "GitHub source report"
+description: "Report a discovery, catalog or distribution problem with a GitHub source."
+title: "[Source report] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public after submission. Review the prefilled details and leave out tokens, personal data, local paths and raw logs. For vulnerabilities or sensitive evidence, follow the [security reporting instructions](https://github.com/4FusionLab/CommunityStore/blob/main/SECURITY.md).
+
+        Examples include missing or unexpected catalog entries, misleading ownership, or suspicious releases across a source. Include relevant public repository links if available.
+  - type: input
+    id: github-owner
+    attributes:
+      label: "GitHub source owner"
+      description: "The GitHub account or organization listed in Community Store."
+    validations:
+      required: true
+  - type: input
+    id: store-version
+    attributes:
+      label: "Community Store version"
+  - type: textarea
+    id: details
+    attributes:
+      label: "What happened?"
+      description: "Describe the problem, what you expected, and how to reproduce it if possible."
+    validations:
+      required: true

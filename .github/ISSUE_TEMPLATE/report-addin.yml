@@ -1,0 +1,31 @@
+name: "Add-in report"
+description: "Report a catalog, package or installation problem with an add-in."
+title: "[Add-in report] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This issue is public after submission. Review the prefilled details and leave out tokens, personal data, local paths and raw logs. For vulnerabilities or sensitive evidence, follow the [security reporting instructions](https://github.com/4FusionLab/CommunityStore/blob/main/SECURITY.md).
+
+        Examples include a catalog mismatch, an invalid manifest, a suspicious ZIP, or a package that appears to have been replaced. For a third-party add-in bug or feature request, contact its developer.
+  - type: input
+    id: repository
+    attributes:
+      label: "Add-in repository on GitHub"
+      description: "Public owner/repository, if available."
+  - type: input
+    id: release-tag
+    attributes:
+      label: "GitHub release tag"
+      description: "Exact tag of the affected release, if known."
+  - type: input
+    id: store-version
+    attributes:
+      label: "Community Store version"
+  - type: textarea
+    id: details
+    attributes:
+      label: "What happened?"
+      description: "Describe the problem, what you expected, and how to reproduce it if possible."
+    validations:
+      required: true

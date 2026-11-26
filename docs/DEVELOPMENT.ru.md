@@ -32,10 +32,12 @@ python scripts/build.py --version 1.0.0
 
 ## Установка в Fusion
 
-В разделе Assets релиза Community Store 1.0.0 на GitHub доступны ZIP аддина Fusion, установочный EXE для Windows и DMG для macOS. Оба сетевых установщика для этого релиза собраны из [коммита `af5eaab`](https://github.com/4FusionLab/CommunityStore/commit/af5eaab2e08a9547cf795d082451183324096908). Чтобы повторить сборку, перейдите на этот коммит и выполните на macOS команду ниже.
+В разделе Assets релиза Community Store 1.0.0 на GitHub доступны ZIP аддина Fusion, установочный EXE для Windows и DMG для macOS. Для повторной сборки перейдите на исходный коммит нужного установщика: [Windows Setup](https://github.com/4FusionLab/CommunityStore/commit/daca11cb357722a9acda717269e40cecba8c43d2) (`daca11c`) или [macOS DMG](https://github.com/4FusionLab/CommunityStore/commit/af5eaab2e08a9547cf795d082451183324096908) (`af5eaab`). Запустите сборщик для соответствующей платформы.
 
 ```bash
-python scripts/build_installers.py --platform all
+python scripts/build_installers.py --platform windows
+# На macOS из коммита установщика для macOS:
+python scripts/build_installers.py --platform macos
 ```
 
 Для обеих платформ загрузчик собирается с помощью Go. Используйте `--platform windows` при наличии NSIS 3 в PATH или `--platform macos` на Mac с Xcode Command Line Tools. Установщики и их файлы SHA-256 появятся в `dist/installers/`.

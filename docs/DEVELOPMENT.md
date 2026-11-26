@@ -32,10 +32,12 @@ An uninitialized source template may be tested using `--allow-template` but **ca
 
 ## Install in Fusion
 
-Community Store 1.0.0 has three installation options in the GitHub release assets: the Fusion add-in ZIP, the Windows Setup EXE and the macOS DMG. Both online installers for this release were built from [commit `af5eaab`](https://github.com/4FusionLab/CommunityStore/commit/af5eaab2e08a9547cf795d082451183324096908). To rebuild them, check out that commit and run the command below on macOS.
+Community Store 1.0.0 has three installation options in the GitHub release assets: the Fusion add-in ZIP, the Windows Setup EXE and the macOS DMG. To rebuild an installer, check out its source commit: [Windows Setup](https://github.com/4FusionLab/CommunityStore/commit/daca11cb357722a9acda717269e40cecba8c43d2) (`daca11c`) or [macOS DMG](https://github.com/4FusionLab/CommunityStore/commit/af5eaab2e08a9547cf795d082451183324096908) (`af5eaab`). Run the builder for the corresponding platform.
 
 ```bash
-python scripts/build_installers.py --platform all
+python scripts/build_installers.py --platform windows
+# On macOS, from the macOS installer commit:
+python scripts/build_installers.py --platform macos
 ```
 
 Go builds the downloader for both platforms. Use `--platform windows` with NSIS 3 on the PATH or `--platform macos` on a Mac with Xcode Command Line Tools. The installers and their SHA-256 files are written to `dist/installers/`.

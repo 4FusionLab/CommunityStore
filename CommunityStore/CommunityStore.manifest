@@ -1,0 +1,13 @@
+{
+  "autodeskProduct": "Fusion360",
+  "type": "addin",
+  "id": "08b17a72-c1c4-4c56-b7b0-eeddf157ee43",
+  "author": "4FusionLab",
+  "description": {
+    "": "Browse GitHub releases and manage Fusion add-ins.",
+    "1049": "Просматривайте релизы GitHub и управляйте аддинами Fusion."
+  },
+  "version": "1.0.0",
+  "runOnStartup": true,
+  "supportedOS": "windows|mac"
+}

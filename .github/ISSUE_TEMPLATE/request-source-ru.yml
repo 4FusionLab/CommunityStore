@@ -1,0 +1,22 @@
+name: "Заявка на доверенный источник"
+description: "Предложите профиль или организацию GitHub для списка источников по умолчанию."
+title: "[Заявка на доверенный источник] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Чтобы ваш профиль или организация GitHub появились в списке источников по умолчанию, подайте публичную заявку. Приложите ссылки на профиль или организацию и на релиз одного из аддинов. Команда Community Store рассмотрит заявку. После одобрения и добавления источника в каталог попадут подходящие аддины этого владельца. [Руководство по публикации аддина](https://github.com/4FusionLab/CommunityStore/blob/main/docs/PUBLISHER_GUIDE.ru.md)
+  - type: input
+    id: owner
+    attributes:
+      label: "Ссылка на профиль или организацию GitHub"
+      placeholder: "https://github.com/ExampleStudio"
+    validations:
+      required: true
+  - type: input
+    id: release
+    attributes:
+      label: "Пример релиза аддина для Fusion с установочным ZIP"
+      placeholder: "https://github.com/ExampleStudio/PanelTool/releases/tag/v1.2.0"
+    validations:
+      required: true

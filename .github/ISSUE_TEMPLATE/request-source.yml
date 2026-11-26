@@ -1,0 +1,22 @@
+name: "Request a trusted source"
+description: "Propose a GitHub profile or organization for the default source list."
+title: "[Request a trusted source] "
+body:
+  - type: markdown
+    attributes:
+      value: |
+        To list your GitHub profile or organization by default, open a public request with links to the owner and an example add-in release. Community Store maintainers review the request. Once approved and added, eligible add-ins from that owner appear in the catalog. [Publisher guide](https://github.com/4FusionLab/CommunityStore/blob/main/docs/PUBLISHER_GUIDE.md)
+  - type: input
+    id: owner
+    attributes:
+      label: "GitHub profile or organization URL"
+      placeholder: "https://github.com/ExampleStudio"
+    validations:
+      required: true
+  - type: input
+    id: release
+    attributes:
+      label: "Example Fusion add-in release with its installable ZIP"
+      placeholder: "https://github.com/ExampleStudio/PanelTool/releases/tag/v1.2.0"
+    validations:
+      required: true

@@ -1,4 +1,4 @@
-# 4FusionLab Fusion add-in development contract
+# Community Store development contract
 
 [Русская версия](AGENTS.ru.md)
 
@@ -6,14 +6,20 @@ Read [4FusionLab shared engineering rules](https://github.com/4FusionLab/.github
 
 ## Working model
 
-- This is an Autodesk Fusion Python add-in. The initial package is `FusionAddin/`; the initializer replaces its name and generates stable IDs.
+- The Fusion Python package is `CommunityStore/`.
 - Discuss requirements and plans in Russian. Use clear English for Fusion commands, controls, diagnostics, and stable API names. Write documents in English and maintain separate Russian versions of documentation; intermediate working notes do not require translation.
 - For README creation or edits, apply the [shared product README guidelines](https://github.com/4FusionLab/.github/blob/main/README_GUIDELINES.md). Check both languages, current release and license terms, and actual validation evidence before delivery.
 - Treat the official Autodesk Fusion API documentation as the source of truth. Never invent SDK symbols; do not imply successful CAD acceptance based solely on offline CI.
-- Put calculations and domain rules into `FusionAddin/core.py` or modules that **do not import adsk**. Fusion API interactions belong in adapters, event handlers and commands running in Fusion's permitted execution context.
+- Put calculations and domain rules into `CommunityStore/core.py` or modules that **do not import adsk**. Fusion API interactions belong in adapters, event handlers and commands running in Fusion's permitted execution context.
 - Design commands to be safe: validate active document, entities, units, parameters, and timeline state; use native previews where applicable. Never modify a user's CAD data during tests or without an explicit command action.
 - Retain event handler instances while active; detach UI controls and command definitions in `stop(context)`. Keep identifiers stable after initial scaffolding. Avoid global state tied to stale documents.
 - Add meaningful unit and offline integration tests. Test real Fusion flows on Windows/macOS separately when they matter; report what has and has not actually been verified.
+
+## Supplier guide
+
+- Read the supplier guide linked from the [English README](README.md) and [Russian README](README.ru.md) before changing repository discovery, installation metadata, supported releases or ZIPs, README rendering and media, or localization.
+- Compare affected guide sections and examples with the implementation and tests. Update both language versions in the same change whenever supplier-facing behavior changes. Keep the instructions and examples equivalent across languages.
+- During release verification, compare the guide with the published build. Label behavior that requires a newer Community Store version and remove outdated prerelease notes when the corresponding build is published.
 
 ## Versioning and publishing
 

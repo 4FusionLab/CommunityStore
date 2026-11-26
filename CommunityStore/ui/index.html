@@ -1,0 +1,243 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'self'; style-src 'self'; img-src 'self' data:; base-uri 'none'">
+  <title>Community Store</title>
+  <link rel="stylesheet" href="store.css">
+  <link rel="stylesheet" href="motion.css">
+  <script src="vendor/markdown-it.min.js" defer></script>
+  <script src="details.js" defer></script>
+  <script src="reporting.js" defer></script>
+  <script src="profiles.js" defer></script>
+  <script src="store.js" defer></script>
+</head>
+<body data-loading>
+  <header>
+    <nav id="tabs" data-i18n-aria-label="sections">
+      <button type="button" data-tab="installed" aria-pressed="true" data-i18n-aria-label="my_addins"><i class="icon package" aria-hidden="true"></i><span data-i18n="my_addins"></span><span class="tiny" data-i18n="addins_short"></span></button>
+      <button type="button" data-tab="catalog" aria-pressed="false" data-i18n-aria-label="marketplace"><i class="icon boxes" aria-hidden="true"></i><span data-i18n="marketplace"></span></button>
+      <button type="button" data-tab="settings" aria-pressed="false" data-i18n-aria-label="settings"><i class="icon sliders" aria-hidden="true"></i><span data-i18n="settings"></span></button>
+    </nav>
+    <div id="toolbar" class="toolbar">
+      <div class="search" role="search"><i class="icon search-icon" aria-hidden="true"></i><input id="search" type="search" aria-keyshortcuts="Meta+F Control+F" data-i18n-aria-label="search" data-i18n-placeholder="search_placeholder"></div>
+      <label id="update-filter" class="inline"><input id="updates-only" type="checkbox"><span id="update-label"></span></label>
+      <button id="sources" class="control" type="button" hidden><i class="icon boxes" aria-hidden="true"></i><span data-i18n="sources"></span></button>
+      <button id="check" class="control" type="button"><i class="icon refresh-cw" aria-hidden="true"></i><span id="check-label" data-i18n="check_updates"></span><span id="check-compact" class="narrow" data-i18n="check_short"></span></button>
+    </div>
+  </header>
+  <main>
+    <p id="startup-status" class="empty" role="status">Connecting to Fusion…</p>
+    <section id="store-guide" aria-labelledby="guide-title" hidden>
+      <div class="guide-heading">
+        <h1 id="guide-title" tabindex="-1" aria-describedby="guide-progress guide-copy guide-account-note"></h1>
+        <button id="guide-skip" type="button" class="link" data-i18n="guide_skip"></button>
+      </div>
+      <p id="guide-copy"></p>
+      <p id="guide-account-note" hidden></p>
+      <div class="guide-actions">
+        <span id="guide-progress"></span>
+        <button id="guide-open-market" type="button" data-i18n="guide_open_market" hidden></button>
+        <button id="guide-back" type="button" data-i18n="guide_back"></button>
+        <button id="guide-next" type="button" class="primary"></button>
+      </div>
+    </section>
+    <section id="installed" data-i18n-aria-label="installed_addins">
+      <div class="toolbar addin-actions" role="group" data-i18n-aria-label="manage_addins">
+        <div class="update-actions">
+          <button id="update-selected" type="button" disabled></button>
+          <button id="update-all" type="button" data-i18n="update_all"></button>
+        </div>
+        <button id="register-local" type="button" data-i18n="register_folder"></button>
+      </div>
+      <details id="removal-archive" hidden>
+        <summary data-i18n="restore_archived_addin"></summary>
+        <p id="archive-help" data-i18n="removal_archive_help"></p>
+        <button id="open-removal-archive" type="button" aria-describedby="archive-help" data-i18n="open_removal_archive"></button>
+      </details>
+      <table class="installed-table" role="table">
+        <thead role="rowgroup"><tr role="row">
+          <th scope="col" role="columnheader" class="selection-cell"><span class="sr-only" data-i18n="selection"></span></th>
+          <th scope="col" role="columnheader" class="identity-cell" data-i18n="addin"></th>
+          <th scope="col" role="columnheader" class="source-cell" data-i18n="source_and_publisher"></th>
+          <th scope="col" role="columnheader" class="author-cell" data-i18n="author"></th>
+          <th scope="col" role="columnheader" class="current-cell" data-i18n="installed_version"></th>
+          <th scope="col" role="columnheader" class="target-cell" data-i18n="target_version"></th>
+          <th scope="col" role="columnheader" class="running-cell" data-i18n="running"></th>
+          <th scope="col" role="columnheader" class="startup-cell" data-i18n="startup"></th>
+          <th scope="col" role="columnheader" class="actions-cell"><span class="sr-only" data-i18n="row_actions"></span></th>
+        </tr></thead>
+        <tbody id="installed-body" role="rowgroup"></tbody>
+      </table>
+      <div id="installed-empty" class="empty" hidden></div>
+    </section>
+    <section id="catalog" data-i18n-aria-label="marketplace" hidden></section>
+    <section id="detail" data-i18n-aria-label="addin_details" hidden></section>
+    <section id="settings" data-i18n-aria-label="settings" hidden>
+      <section class="settings-section github-settings">
+        <h2>GitHub</h2>
+        <p id="github-status" role="status"></p>
+        <div id="github-account" class="github-account" hidden>
+          <span id="github-avatar"></span>
+          <div class="github-identity">
+            <strong id="github-name" dir="auto"></strong>
+            <span id="github-login"></span>
+          </div>
+          <button id="github-sign-out" type="button" data-i18n="github_sign_out" hidden></button>
+        </div>
+        <p id="github-error" role="alert" hidden></p>
+        <p id="github-device" hidden><span data-i18n="github_device_code"></span>
+          <code id="github-code"></code></p>
+        <p id="github-copy-feedback" role="status" hidden></p>
+        <div id="github-actions" class="setting-actions">
+          <button id="github-sign-in" class="primary" type="button" data-i18n="github_sign_in" hidden></button>
+          <button id="github-copy" type="button" data-i18n="github_copy_code" hidden></button>
+          <button id="github-open-device" class="primary" type="button" data-i18n="github_open_device" hidden></button>
+          <button id="github-cancel" type="button" data-i18n="cancel" hidden></button>
+          <button id="github-profile" type="button" data-i18n="github_profile_retry" hidden></button>
+        </div>
+      </section>
+      <div class="settings-column">
+        <section class="settings-section">
+          <label class="setting-row"><span data-i18n="language"></span> <select id="language">
+            <option value="system" data-i18n="system_language"></option>
+            <option value="ru" lang="ru" data-i18n="language_ru"></option>
+            <option value="en" lang="en" data-i18n="language_en"></option>
+          </select></label>
+        </section>
+        <section class="settings-section">
+          <h2 data-i18n="release_checks"></h2>
+          <div class="release-check-fields">
+            <label><span data-i18n="automatic"></span><input type="checkbox" class="run-toggle" id="automatic"></label>
+            <label><span data-i18n="interval"></span><select id="interval">
+              <option value="15" data-i18n="interval_15"></option><option value="30" data-i18n="interval_30"></option>
+              <option value="60" data-i18n="interval_60"></option><option value="120" data-i18n="interval_120"></option>
+            </select></label>
+          </div>
+        </section>
+      </div>
+      <div class="settings-column">
+        <section class="settings-section">
+          <h2>Fusion</h2>
+          <button id="native" type="button" data-i18n="open_native"></button>
+        </section>
+        <section class="settings-section">
+          <h2 data-i18n="profiles"></h2>
+          <button id="profile-export" type="button" data-i18n="profile_export"></button>
+          <button id="profile-import" type="button" data-i18n="profile_import"></button>
+        </section>
+        <section class="settings-section">
+          <h2 data-i18n="diagnostics"></h2>
+          <p data-i18n="diagnostics_help"></p>
+          <button id="export-logs" type="button" data-i18n="export_logs"></button>
+        </section>
+        <section class="settings-section">
+          <h2 data-i18n="developers"></h2>
+          <p data-i18n="developer_prepare"></p>
+          <a id="publisher-guide" class="external-link" data-external><span data-i18n="publisher_guide"></span><i class="icon external" aria-hidden="true"></i></a>
+          <p data-i18n="developer_review"></p>
+          <a id="request-source" class="external-link" data-external><span data-i18n="request_source"></span><i class="icon external" aria-hidden="true"></i></a>
+        </section>
+        <section class="settings-section">
+          <h2 id="store-version"></h2>
+          <div class="settings-links">
+            <a class="external-link" href="https://github.com/4FusionLab/CommunityStore" data-external><span data-i18n="repository"></span><i class="icon external" aria-hidden="true"></i></a>
+            <a class="external-link" href="https://t.me/+cRQrRpr5pzE2MGU6" data-external><span data-i18n="community_chat"></span><i class="icon external" aria-hidden="true"></i></a>
+          </div>
+          <p id="store-update-disabled" hidden></p>
+          <button id="guide-replay" type="button" class="link" data-i18n="guide_replay" aria-controls="store-guide"></button>
+        </section>
+      </div>
+    </section>
+  </main>
+  <div class="palette-bottom">
+    <div id="notice" role="alert" hidden>
+      <span id="notice-message"></span>
+      <button id="notice-dismiss" type="button" data-i18n-aria-label="dismiss_notice"><span aria-hidden="true">×</span></button>
+    </div>
+    <aside id="download-dock" hidden data-i18n-aria-label="operation_progress">
+      <section id="operation-progress" hidden></section>
+      <details id="batch-results" hidden>
+        <summary>
+          <span data-i18n="batch_results"></span>
+          <span id="batch-result-count"></span>
+          <i class="icon chevron-right" aria-hidden="true"></i>
+        </summary>
+        <ul id="batch-result-list" tabindex="0" data-i18n-aria-label="batch_results"></ul>
+      </details>
+    </aside>
+    <p id="operation-announcement" class="sr-only" role="status"></p>
+    <div id="palette-status" hidden>
+      <p id="check-status" role="status" hidden></p>
+      <p id="store-update-notice" role="status" hidden></p>
+    </div>
+    <footer id="palette-footer"><span id="footer-label" role="status"></span><span id="checked"></span></footer>
+  </div>
+  <dialog id="profile-dialog" aria-labelledby="profile-title">
+    <h1 id="profile-title"></h1>
+    <div id="profile-body"></div>
+    <p id="profile-feedback" role="status"></p>
+    <div class="dialog-actions">
+      <button id="profile-close" type="button" data-i18n="close"></button>
+      <button id="profile-submit" type="button" class="primary"></button>
+    </div>
+  </dialog>
+  <dialog id="batch-preview" aria-labelledby="batch-title">
+    <form id="batch-form">
+      <h1 id="batch-title" tabindex="-1" autofocus></h1>
+      <p id="batch-summary" role="status"></p>
+      <ul id="batch-rows" tabindex="0" data-i18n-aria-label="batch_items"></ul>
+      <div class="dialog-actions">
+        <button id="batch-cancel" type="button" data-i18n="close"></button>
+        <button id="batch-apply" type="submit" class="primary"></button>
+      </div>
+    </form>
+  </dialog>
+  <dialog id="source-dialog" aria-labelledby="sources-title">
+    <div class="source-heading">
+      <h1 id="sources-title" data-i18n="github_sources"></h1>
+      <form method="dialog"><button data-i18n="close"></button></form>
+    </div>
+    <p id="source-help" data-i18n="source_owner_help"></p>
+    <ul id="source-list" class="source-list"></ul>
+    <p id="source-notice" role="status" hidden></p>
+    <form id="add-owner">
+      <label for="source-url" data-i18n="github_url"></label>
+      <input id="source-url" name="url" aria-describedby="source-help" inputmode="url" autocapitalize="none" spellcheck="false" required autofocus data-i18n-placeholder="github_example">
+      <button type="submit" data-i18n="add"></button>
+    </form>
+  </dialog>
+  <dialog id="report-dialog" aria-labelledby="report-title" aria-describedby="report-scope report-visibility">
+    <h1 id="report-title" tabindex="-1" autofocus></h1>
+    <div class="report-copy" role="region" tabindex="0" aria-labelledby="report-title">
+      <p id="report-scope"></p>
+      <p id="report-developer" data-i18n="report_developer"></p>
+      <p id="report-visibility" data-i18n="report_visibility"></p>
+      <p data-i18n="report_sensitive"></p>
+    </div>
+    <form method="dialog" class="dialog-actions">
+      <button data-i18n="cancel"></button>
+      <button id="report-security" type="button" data-i18n="report_security"></button>
+      <button id="report-public" type="button" class="primary" data-i18n="report_public"></button>
+    </form>
+  </dialog>
+  <dialog id="gallery-dialog" aria-labelledby="gallery-title">
+    <header class="gallery-heading">
+      <h1 id="gallery-title"></h1>
+      <form method="dialog"><button data-i18n="close"></button></form>
+    </header>
+    <img id="gallery-image" alt="">
+  </dialog>
+  <dialog id="confirm" aria-labelledby="confirm-title" aria-describedby="confirm-text">
+    <form method="dialog" id="confirm-form">
+      <h1 id="confirm-title" tabindex="-1"></h1>
+      <div class="confirm-copy" role="region" tabindex="0" aria-labelledby="confirm-title">
+        <p id="confirm-text"></p>
+        <fieldset id="packages" hidden><legend data-i18n="release_zip"></legend></fieldset>
+      </div>
+      <div class="dialog-actions"><button value="cancel" autofocus data-i18n="cancel"></button><button id="confirm-action" value="apply" class="primary"></button></div>
+    </form>
+  </dialog>
+</body>
+</html>

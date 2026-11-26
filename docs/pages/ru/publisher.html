@@ -1,0 +1,553 @@
+<!doctype html>
+<html lang="ru">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>Руководство для авторов · Community Store</title
+    ><link rel="stylesheet" href="../style.css" />
+    <link
+        rel="canonical"
+        href="https://4fusionlab.github.io/CommunityStore/ru/publisher.html"
+    /><link
+        rel="alternate"
+        hreflang="ru"
+        href="https://4fusionlab.github.io/CommunityStore/ru/publisher.html"
+    /><link
+        rel="alternate"
+        hreflang="en"
+        href="https://4fusionlab.github.io/CommunityStore/publisher.html"
+    />
+    <main class="guide frame">
+        <a href="./">← Community Store</a>
+        <h1 id="как-опубликовать-аддин-fusion-для-community-store">
+            Как опубликовать аддин Fusion для Community Store
+        </h1>
+        <p>
+            <a href="../publisher.html">English</a> ·
+            <a href="./">Community Store</a>
+        </p>
+        <p>
+            Руководство для авторов и поставщиков, которые уже умеют собирать
+            аддины Autodesk Fusion. Оно поможет подготовить GitHub-репозиторий,
+            чтобы пользователи могли найти аддин в каталоге, изучить его
+            возможности и установить пакет из релиза.
+        </p>
+        <p>
+            <strong>Статус выпуска.</strong> На 26 ноября 2026 года у Community
+            Store нет опубликованных GitHub Releases. Руководство описывает
+            текущую сборку в разработке, включая загрузку README по языку,
+            страницу аддина в каталоге и список версий установленного аддина.
+            <a href="https://github.com/4FusionLab/CommunityStore/releases"
+                >Релизы Community Store</a
+            >
+        </p>
+        <h2 id="подключите-владельца-github-и-подготовьте-репозиторий">
+            Подключите владельца GitHub и подготовьте репозиторий
+        </h2>
+        <ol type="1">
+            <li>
+                Используйте публичный репозиторий, принадлежащий вашему аккаунту
+                или организации на GitHub. Community Store пропускает закрытые и
+                архивные репозитории, форки и репозитории с именем, начинающимся
+                с точки.
+            </li>
+            <li>
+                Если владельца GitHub нет в списке по умолчанию, предложите
+                пользователям открыть <strong>Каталог → Источники</strong> и
+                ввести его логин, URL профиля или URL репозитория. Например,
+                <code>https://github.com/ExampleStudio/PanelTool</code>
+                подключит все подходящие репозитории владельца
+                <code>ExampleStudio</code> в этой установке. Публичный каталог
+                доступен без входа, а после входа запросы расходуют квоту GitHub
+                API пользователя.
+            </li>
+            <li>
+                Опубликуйте GitHub Release. Одного Git-тега или черновика релиза
+                для появления карточки недостаточно. Аддин можно явно обозначить
+                с помощью любой из следующих тем — <code>fusion-addin</code>,
+                <code>fusion360-addin</code>,
+                <code>autodesk-fusion-addin</code> или
+                <code>fusion-360-addin</code>.
+            </li>
+        </ol>
+        <p>
+            Community Store также распознаёт обычный аддин Fusion в дереве
+            файлов выбранного тега. Он ищет JSON-файл
+            <code>.manifest</code> рядом с одноимённым файлом <code>.py</code>,
+            <code>.ts</code>, <code>.js</code>, <code>.dll</code>,
+            <code>.dylib</code> или <code>.cpp</code>. Укажите
+            <code>"type": "addin"</code> и
+            <code>"autodeskProduct": "Fusion"</code> или
+            <code>"Fusion360"</code>. Размещайте манифест вне каталогов
+            <code>test</code>, <code>tests</code>, <code>samples</code>,
+            <code>examples</code> и <code>docs</code>. Размер файла должен быть
+            не больше 32 КиБ. Store проверяет до шести кандидатов, отдавая
+            приоритет совпадению с именем репозитория, а затем меньшей глубине
+            пути.
+        </p>
+        <p>
+            В отсутствие подходящей темы и манифеста в теге Store может
+            обнаружить аддин, проверив подходящий загруженный ZIP с контрольной
+            суммой GitHub и поддерживаемой версией тега. Тема позволяет показать
+            релиз даже без пригодного пакета. Включайте манифест в тег и при
+            наличии темы, чтобы Store мог определить ID аддина и найти его
+            значки в репозитории.
+        </p>
+        <h2 id="как-подать-заявку-на-добавление-доверенного-источника">
+            Как подать заявку на добавление доверенного источника
+        </h2>
+        <p>
+            Чтобы ваш профиль или организация GitHub появились в списке
+            источников по умолчанию, подайте публичную заявку. Приложите ссылки
+            на профиль или организацию и на релиз одного из аддинов. Команда
+            Community Store рассмотрит заявку. После одобрения и добавления
+            источника в каталог попадут подходящие аддины этого владельца.
+            <a
+                href="https://github.com/4FusionLab/CommunityStore/issues/new?template=request-source-ru.yml"
+                >Подать заявку на добавление источника</a
+            >
+        </p>
+        <p>
+            Команда Community Store ведёт список источников по умолчанию в файле
+            <a
+                href="https://github.com/4FusionLab/CommunityStore/blob/main/trusted-stores.json"
+                >trusted-stores.json</a
+            >. Одобрив заявку, команда добавляет логин владельца GitHub в массив
+            <code>owners</code> и вносит изменение в ветку <code>main</code>.
+            Файл лежит за пределами списка путей выпуска аддина. Правка только
+            этого файла обновляет список источников без выпуска новой версии
+            Store. Community Store проверяет изменения при запуске, открытии
+            палитры и проверках каталога. Последний корректный список доступен
+            офлайн, источники, добавленные вручную, сохраняются. В новой
+            установке доступен <code>4FusionLab</code> до получения корректного
+            списка.
+        </p>
+        <h2 id="соберите-пакет-и-опубликуйте-релиз">
+            Соберите пакет и опубликуйте релиз
+        </h2>
+        <ol type="1">
+            <li>
+                Выберите тег вида <code>v1.2.0</code> и укажите
+                <code>"version": "1.2.0"</code> в манифесте внутри ZIP. Store
+                сравнивает версии по числам. Поддерживаются от двух до четырёх числовых
+                компонентов, необязательный префикс <code>v</code> и
+                необязательные метаданные <code>+build</code>, которые не
+                учитываются при сравнении. Тег вида
+                <code>v1.2.0-beta.1</code> для установки не подойдёт. Отмечайте
+                предварительные версии на GitHub как pre-release. Они могут
+                появляться в каталоге со ссылкой на GitHub. Установка и выбор
+                целевой версии в Store используют стабильные релизы.
+            </li>
+            <li>
+                Загрузите установочный <code>.zip</code> в раздел
+                <strong>Assets</strong> релиза GitHub для этого тега.
+                Автоматический архив GitHub
+                <strong>Source code (zip)</strong> исключён. Store требует
+                SHA-256 в метаданных файла на GitHub и сверяет её с загруженными
+                байтами. Отдельный файл <code>.sha256</code> удобен для ручной
+                проверки, а для проверки в Store нужна сумма из метаданных.
+                <a
+                    href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository"
+                    >Инструкция GitHub по публикации релизов</a
+                >
+            </li>
+            <li>
+                Положите в ZIP одну папку аддина с одноимёнными манифестом и
+                файлом запуска, а также необходимыми зависимостями. Для
+                переносимости используйте одинаковое написание и регистр имени
+                папки и файлов без расширения. Укажите в
+                <code>id</code> уникальный постоянный GUID и сохраняйте его в
+                манифесте в теге, во всех пакетах и последующих версиях. Store
+                принимает скрипты <code>.py</code>, <code>.ts</code> и
+                <code>.js</code>, нативный <code>.dylib</code> для macOS и
+                64-битную библиотеку AMD64 PE DLL для Windows. Исходный
+                <code>.cpp</code> помогает обнаружить аддин, а для установки
+                нативной версии нужна библиотека. Лимиты ZIP — 150 МиБ при
+                загрузке, 450 МиБ после распаковки и 15 000 записей. Используйте
+                обычные относительные пути без символических ссылок, имён,
+                различающихся только регистром, и зарезервированных имён
+                Windows.
+                <a
+                    href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/WritingDebugging_UM.htm"
+                    >Манифест и структура аддина в документации Autodesk</a
+                >
+            </li>
+            <li>
+                Укажите в <code>supportedOS</code> системы, которые
+                действительно поддерживает пакет — <code>windows</code>,
+                <code>mac</code> или <code>windows|mac</code>. До загрузки Store
+                проверяет имя ZIP, при подготовке к установке — манифест и файл
+                запуска. Отметка совместимости в списке пакетов не подтверждает
+                работу бинарного файла и его зависимостей в Fusion.
+            </li>
+        </ol>
+        <table>
+            <thead>
+                <tr>
+                    <th>Пакет</th>
+                    <th>Пример имени файла в релизе</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Одинаковые файлы для Windows и macOS</td>
+                    <td><code>PanelTool-1.2.0.zip</code></td>
+                </tr>
+                <tr>
+                    <td>Windows x64</td>
+                    <td><code>PanelTool-1.2.0-windows-x64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>macOS на Apple silicon</td>
+                    <td><code>PanelTool-1.2.0-macos-arm64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>macOS на Intel</td>
+                    <td><code>PanelTool-1.2.0-macos-x64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>Универсальный бинарный файл macOS</td>
+                    <td><code>PanelTool-1.2.0-macos-universal2.zip</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Разделяйте обозначения системы и архитектуры дефисами,
+            подчёркиваниями или точками. Store распознаёт <code>mac</code>,
+            <code>macos</code>, <code>darwin</code>, <code>osx</code>,
+            <code>win</code>, <code>windows</code>, <code>win64</code> и
+            <code>windows64</code>. Указывайте <code>x64</code> (также
+            <code>amd64</code>, <code>intel</code>, <code>x86_64</code>) или
+            <code>arm64</code> (также <code>aarch64</code>) вместе с явным
+            обозначением системы. Для Windows при выборе пакета ожидается x64.
+            Для macOS Store использует архитектуру, которую сообщает его
+            процесс. Архивы, помеченные как исходники, отладочные, Linux или
+            32-битные сборки, не подходят. Если в списке несколько ZIP, окно
+            выбора отмечает, какие подходят для текущей системы. Проверяйте сам
+            пакет в Fusion на каждой поддерживаемой платформе.
+        </p>
+        <h2 id="свяжите-уже-установленный-аддин">
+            Свяжите уже установленный аддин
+        </h2>
+        <p>
+            Если аддин установлен вручную или клонирован из Git, зарегистрируйте
+            его папку в Fusion, чтобы он появился в разделе
+            <strong>Мои аддины</strong>. Добавьте владельца GitHub в
+            <strong>Источники</strong>. Для поиска версий Community Store
+            использует сохранённую привязку собственных установок или
+            GitHub-адрес <code>origin</code> локального клона. В остальных
+            случаях Store ищет единственное совпадение в каталоге.
+        </p>
+        <p>
+            Самый надёжный признак совпадения — один и тот же ID манифеста.
+            Store также может сопоставить аддин по имени без расширения из
+            найденного манифеста, по имени репозитория при отсутствии манифеста
+            или по GitHub <code>origin</code>. Если оба ID известны и
+            различаются, совпадающего имени недостаточно. Для обновления папки
+            без ID нужен точный GitHub <code>origin</code>, а пакет должен
+            совпасть с аддином по имени. Используйте постоянный ID и единое имя,
+            чтобы избежать неоднозначных совпадений. После сопоставления каталог
+            может показать отметку <strong>Установлен</strong>. Применение
+            обновления выполняется отдельным действием.
+        </p>
+        <h2 id="что-видит-пользователь">Что видит пользователь</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Поле</th>
+                    <th>Источник</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Название, поставщик и звёзды</td>
+                    <td>
+                        В каталоге используются имя репозитория, логин владельца
+                        и число звёзд репозитория GitHub. Каталог сортируется по
+                        звёздам. Страница локального аддина использует имя из
+                        Fusion.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Поставщик и автор в списках</td>
+                    <td>
+                        Каталог показывает владельца репозитория GitHub и автора
+                        из манифеста релиза, если он известен. В разделе «Мои
+                        аддины» автор берётся из Fusion, а владелец репозитория
+                        GitHub отображается для связанных установок.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Описание</td>
+                    <td>
+                        Описание репозитория GitHub. Если его нет, Store берёт
+                        первую подходящую строку из текста выбранного релиза.
+                        Карточка показывает короткую выдержку без форматирования
+                        Markdown.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Автор и установленная версия</td>
+                    <td>
+                        В шапке страницы приоритет у автора из локальной
+                        регистрации Fusion. Также Store показывает поле
+                        <code>author</code> из манифеста, если он обнаружен для
+                        выбранного релиза. Установленная версия берётся из
+                        локального манифеста или, если она не указана в нём, из
+                        регистрации Fusion.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Версия в репозитории и дата публикации</td>
+                    <td>Тег и дата публикации выбранного GitHub Release.</td>
+                </tr>
+                <tr>
+                    <td>Заметки о релизе</td>
+                    <td>
+                        Текст выбранного GitHub Release отображается как
+                        Markdown, до 16 000 символов. Поместите краткое описание
+                        изменений в начало. В качестве версии показывается тег
+                        релиза.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Целевые версии</td>
+                    <td>
+                        В разделе <strong>Мои аддины → Целевая</strong> или в
+                        шапке страницы аддина для сопоставленной установки можно
+                        следовать за последним релизом или выбрать доступный
+                        стабильный тег из истории. Список отсортирован по
+                        числовой версии и включает релизы с подходящим ZIP и
+                        контрольной суммой GitHub. История загружается в фоне, а
+                        при недоступности GitHub могут отображаться сохранённые
+                        версии.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Сначала Store проверяет последний стабильный релиз по данным GitHub.
+            Если его нельзя установить на текущей системе, Store выбирает первый
+            подходящий стабильный релиз в порядке выдачи истории. Если
+            подходящего релиза нет, карточка всё равно может показывать
+            последний релиз или первую опубликованную запись истории без кнопки
+            установки. README и заметки на странице аддина относятся к релизу,
+            выбранному для каталога, даже если для установленного аддина
+            пользователь указал другую целевую версию.
+        </p>
+        <h2 id="оформите-readme-для-каталога">Оформите README для каталога</h2>
+        <p>
+            Положите файлы <code>README.md</code> и <code>README.ru.md</code> в
+            кодировке UTF-8 в корень репозитория
+            <strong>на теге релиза</strong>. Store загружает файлы по тегу, даже
+            если в основной ветке есть более свежая копия. Для английского
+            используется только <code>README.md</code>. Для русского Store
+            сначала пробует <code>README.ru.md</code>, затем
+            <code>README.md</code>, если русского файла нет, он пуст или
+            недоступен. Русский файл из одних пробельных символов может помешать
+            переходу на английский, тогда README будет показан как недоступный.
+            Лимит на файл — 96 КиБ. Соблюдайте регистр имени и включайте обе
+            версии и изображения в коммит до создания тега.
+        </p>
+        <p>
+            В разделе <strong>Настройки → Язык интерфейса</strong> можно выбрать
+            английский, русский или язык системы. Для неподдерживаемых языков
+            системы используется английский. Настройка меняет интерфейс Store и
+            выбор README. Локализуйте команды и элементы управления своего
+            аддина отдельно. Локализованные описания в манифесте предназначены
+            для Fusion. Пишите описание репозитория и заметки о релизе на тех
+            языках, которые должны увидеть пользователи. Store показывает эти
+            поля GitHub в исходном виде при любом языке интерфейса.
+        </p>
+        <p>
+            На странице аддина есть раздел <strong>Читать README</strong> и
+            ссылка на выбранный файл на GitHub. Во время загрузки и при
+            недоступности показывается соответствующий статус. Поддерживаются
+            заголовки, абзацы, списки, выделение, цитаты, код и таблицы.
+            Допускается ограниченный набор HTML-элементов, например
+            <code>&lt;details&gt;</code> и <code>&lt;summary&gt;</code>.
+            Интерактивные вставки, скрипты, стили и большинство HTML-атрибутов
+            удаляются. Используйте явные ссылки Markdown. HTTPS-ссылки
+            открываются в браузере, а относительные ссылки и ссылки на якоря
+            разрешаются относительно файла на GitHub для выбранного тега.
+            Обычные URL в тексте автоматически не становятся ссылками. В
+            заметках о релизе используется тот же рендерер. Относительные ссылки
+            ведут от <code>README.md</code> на теге, встроенные изображения не
+            загружаются.
+        </p>
+        <h3 id="логотипы-и-скриншоты">Логотипы и скриншоты</h3>
+        <ul>
+            <li>
+                Используйте PNG, JPEG (<code>.jpg</code> или <code>.jpeg</code>)
+                или WebP размером до <strong>1 МиБ</strong> и
+                <strong>4096 пикселей</strong>
+                по каждой стороне. Указывайте обычные относительные пути на
+                выбранном теге в прямых ссылках Markdown на изображения или в
+                HTML
+                <code>&lt;img src="…"&gt;</code> с кавычками. Внешние картинки,
+                стандартные бейджи, SVG и GIF не загружаются. Одного определения
+                ссылки в Markdown недостаточно, чтобы Store загрузил картинку.
+                Если картинку нельзя показать, остаётся альтернативный текст.
+            </li>
+            <li>
+                Чтобы изображение из README также могло попасть в галерею,
+                положите его в папку, как <code>media/screenshot.png</code>.
+                Файл в корне или с <code>icon</code> либо <code>logo</code> в
+                имени считается кандидатом на роль логотипа. Изображения README
+                и вложения релиза с <code>badge</code>, <code>banner</code>,
+                <code>avatar</code> или <code>shield</code> в имени
+                пропускаются. Store рассматривает до 12 разных путей из README и
+                пытается показать до четырёх изображений внутри текста, начиная
+                со скриншотов.
+            </li>
+            <li>
+                Store сначала пробует явно указанный значок, затем вложение
+                релиза с <code>icon</code> или <code>logo</code> в имени, затем
+                один из двух первых подходящих по приоритету PNG из папки
+                <code>resources/</code>
+                аддина на теге, а затем логотип из README. Поддерживаемые имена
+                PNG в
+                <code>resources/</code> — <code>32x32@2x.png</code>,
+                <code>64x64.png</code> и <code>32x32.png</code>. Для галереи
+                Store сначала пробует явно указанные изображения, затем другие
+                подходящие вложения релиза, а после них скриншоты из README.
+                Store рассматривает до восьми подходящих вложений с
+                изображениями. Страница аддина показывает до трёх скриншотов.
+                Карточка в списке показывает первый скриншот, при его отсутствии
+                — логотип или заглушку.
+            </li>
+            <li>
+                Чтобы явно указать изображения, добавьте в корень тега
+                <code>community-store.json</code> с относительными путями к
+                растровым файлам. Используйте поля <code>icon</code>,
+                <code>preview</code> и до шести путей в
+                <code>screenshots</code>. Store читает конфигурацию, если
+                находит её в дереве тега при поиске распознанного манифеста.
+                Конфигурация и вложения релиза общие для обоих языков. В
+                отдельных README можно сослаться на разные иллюстрации.
+            </li>
+        </ul>
+        <h2 id="минимальный-пример">Минимальный пример</h2>
+        <p>
+            Вымышленный репозиторий <code>ExampleStudio/PanelTool</code> на теге
+            <code>v1.2.0</code> может выглядеть так. Подставьте реальные файлы и
+            изображения своего аддина.
+        </p>
+        <pre class="text"><code>README.md
+README.ru.md
+media/
+  logo.png
+  screenshot.png
+PanelTool/
+  PanelTool.manifest
+  PanelTool.py</code></pre>
+        <p><code>PanelTool/PanelTool.manifest</code></p>
+        <div class="sourceCode" id="cb2">
+            <pre
+                class="sourceCode json"
+            ><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;autodeskProduct&quot;</span><span class="fu">:</span> <span class="st">&quot;Fusion&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;addin&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;cee740c8-fe09-4e15-abc7-0fdc760a23f9&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;author&quot;</span><span class="fu">:</span> <span class="st">&quot;Example Studio&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;&quot;</span><span class="fu">:</span> <span class="st">&quot;Create perforated panels.&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;1049&quot;</span><span class="fu">:</span> <span class="st">&quot;Создавайте перфорированные панели.&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;1.2.0&quot;</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;runOnStartup&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;supportedOS&quot;</span><span class="fu">:</span> <span class="st">&quot;windows|mac&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+        </div>
+        <p><code>README.md</code></p>
+        <div class="sourceCode" id="cb3">
+            <pre
+                class="sourceCode markdown"
+            ><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># PanelTool for Autodesk Fusion</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Русская версия</span><span class="co">](README.ru.md)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Create perforated panels with a configurable hole pitch.</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="al">![PanelTool logo](media/logo.png)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## In Fusion</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>Open **PanelTool**, set the pitch, and preview the hole pattern.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="al">![Preview of a perforated panel](media/screenshot.png)</span></span></code></pre>
+        </div>
+        <p><code>README.ru.md</code></p>
+        <div class="sourceCode" id="cb4">
+            <pre
+                class="sourceCode markdown"
+            ><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># PanelTool для Autodesk Fusion</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English</span><span class="co">](README.md)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Создавайте перфорированные панели с настраиваемым шагом отверстий.</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="al">![Логотип PanelTool](media/logo.png)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## В Fusion</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Откройте **PanelTool**, задайте шаг и посмотрите предварительную раскладку отверстий.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="al">![Предпросмотр перфорированной панели](media/screenshot.png)</span></span></code></pre>
+        </div>
+        <p>
+            Опубликуйте стабильный GitHub Release с тегом <code>v1.2.0</code> и
+            заметкой «Added a hole-pattern preview. / Добавлен предварительный
+            просмотр раскладки отверстий.». Загрузите
+            <code>PanelTool-1.2.0.zip</code> с файлами
+            <code>PanelTool/PanelTool.manifest</code>,
+            <code>PanelTool/PanelTool.py</code> и всеми необходимыми
+            зависимостями. Убедитесь, что GitHub показывает контрольную сумму
+            ZIP. Пример реального релиза с загруженным установочным ZIP и
+            контрольной суммой —
+            <a href="https://github.com/4FusionLab/ExporTo/releases/tag/v1.2.0"
+                >ExporTo v1.2.0</a
+            >.
+        </p>
+        <h2 id="проверьте-результат">Проверьте результат</h2>
+        <ul>
+            <li>
+                <strong>Карточки нет.</strong> Проверьте логин владельца в
+                <strong>Источниках</strong>, публичность репозитория, наличие
+                опубликованного релиза и подходящей темы либо манифеста на
+                выбранном теге. Обновите каталог. Если GitHub ограничил запросы,
+                проверьте время следующей попытки или войдите в аккаунт.
+            </li>
+            <li>
+                <strong>Карточка есть, кнопки установки нет.</strong> Откройте
+                выбранный релиз на GitHub. Проверьте, что релиз стабильный, тег
+                распознаётся как версия, подходящий ZIP прикреплён и у него есть
+                контрольная сумма. Если установка начинается и завершается
+                ошибкой, сверьте ID и версию манифеста, имена папки и файла
+                запуска, <code>supportedOS</code> и содержимое ZIP.
+            </li>
+            <li>
+                <strong>У установленного аддина нет списка версий.</strong>
+                Проверьте источник владельца, локальную регистрацию в Fusion, ID
+                манифеста и GitHub <code>origin</code>. Убедитесь, что
+                совпадение однозначно и в истории есть стабильный пакет под вашу
+                систему. Повторите проверку, если история ещё загружается или
+                недоступна.
+            </li>
+            <li>
+                <strong>Не тот язык или README отсутствует.</strong> Проверьте
+                <strong>Язык интерфейса</strong>, тег на странице аддина,
+                регистр имён файлов в корне, их размер и кодировку UTF-8. Если
+                вместо русского виден английский, откройте русский файл на
+                GitHub по этому тегу. Чтобы Store увидел новую версию файла из
+                основной ветки, включите её в следующий тег релиза.
+            </li>
+            <li>
+                <strong>Логотип или скриншот отсутствует.</strong> Проверьте
+                относительный путь и регистр на теге, формат и размер файла,
+                порядок отбора в галерею и лимит картинок внутри текста.
+                Проверьте английскую и русскую версии по отдельности.
+            </li>
+        </ul>
+    </main>
+</html>

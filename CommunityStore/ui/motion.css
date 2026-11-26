@@ -1,0 +1,71 @@
+@media (prefers-reduced-motion: no-preference) {
+  :root {
+    --motion-fast: 120ms;
+    --motion-enter: 180ms;
+    --motion-ease: cubic-bezier(.2,0,0,1);
+  }
+
+  button, select, input, .search, .external-link, .markdown a, summary,
+  .installed-table tbody tr {
+    transition:
+      background-color var(--motion-fast) ease-out,
+      border-color var(--motion-fast) ease-out,
+      color var(--motion-fast) ease-out,
+      opacity var(--motion-fast) ease-out,
+      box-shadow var(--motion-fast) ease-out,
+      filter var(--motion-fast) ease-out;
+  }
+
+  .search:focus-within, .market-card:is(:hover,:focus-visible) {border-color:var(--control-line)}
+  :is(.market-card,.back,.external-link,#batch-results > summary) > .icon, .run-toggle::before {
+    transition:transform var(--motion-fast) var(--motion-ease);
+  }
+  .market-card:is(:hover,:focus-visible) > .chevron-right {transform:translateX(2px)}
+  .back:is(:hover,:focus-visible) > .arrow-left {transform:translateX(-2px)}
+  .external-link:is(:hover,:focus-visible) > .external {transform:translate(1px,-1px)}
+
+  #download-dock, #batch-result-list, #source-notice,
+  #github-error, #github-copy-feedback, #store-update-disabled,
+  .row-menu, .control-hint, .artwork-arrival, .detail-section details[open] > .markdown {
+    animation:store-fade-in var(--motion-fast) ease-out;
+  }
+
+  #github-device, #github-account {
+    animation:store-panel-in var(--motion-enter) var(--motion-ease);
+  }
+
+  #notice:not(.leaving), #check-status, #store-update-notice {
+    animation:store-notice-in var(--motion-enter) var(--motion-ease);
+  }
+  #notice.leaving {
+    animation:none;
+    opacity:0;
+    transform:translateY(4px);
+    transition:opacity 160ms ease-in,transform 160ms ease-in;
+  }
+
+  dialog[open] {animation:store-panel-in var(--motion-enter) var(--motion-ease)}
+  dialog[open]::backdrop {animation:store-fade-in var(--motion-enter) ease-out}
+  #check[data-checking] .refresh-cw {animation:store-spin 1s linear infinite}
+  .operation-meter:indeterminate::after {animation:store-progress 1.4s ease-in-out infinite alternate}
+
+  @keyframes store-fade-in {from {opacity:0}}
+  @keyframes store-panel-in {from {opacity:.8;transform:translateY(4px)}}
+  @keyframes store-notice-in {from {opacity:0;transform:translateY(4px)}}
+  @keyframes store-spin {to {transform:rotate(1turn)}}
+  @keyframes store-progress {to {transform:translateX(257%)}}
+}
+
+@media (prefers-reduced-motion: no-preference) and (forced-colors: none) {
+  button:not(:disabled):active {filter:brightness(.94)}
+}
+
+@media (prefers-reduced-motion: reduce) and (forced-colors: active) {
+  .operation-meter:indeterminate {
+    appearance:none;
+    forced-color-adjust:none;
+    border:1px solid CanvasText;
+  }
+  .operation-meter:indeterminate::-webkit-progress-bar {background:Canvas}
+  .operation-meter:indeterminate::after {background:Highlight}
+}

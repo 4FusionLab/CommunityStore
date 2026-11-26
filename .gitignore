@@ -3,6 +3,7 @@
 Thumbs.db
 .idea/
 .vscode/
+.playwright-mcp/
 *.swp
 
 # Python
@@ -25,3 +26,9 @@ build/
 *.p12
 *.pfx
 *.key
+
+# Community Store local installations
+/CommunityStore/AddIns/
+/CommunityStore/.community-store-staging/
+/CommunityStore/.community-store-removed/
+/CommunityStore/.community-store-updates/

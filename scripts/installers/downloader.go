@@ -63,14 +63,50 @@ func download(client *http.Client, url string, limit int64) ([]byte, int, error)
 	return data, resp.StatusCode, err
 }
 
-func fetchRelease(client *http.Client, releaseURL, assetsURL string) ([]byte, string, error) {
-	reportProgress("release")
+func latestWebTag(client *http.Client, webReleases string) (string, error) {
+	// Inspect only GitHub's first redirect, without fetching the release page.
+	probe := *client
+	probe.CheckRedirect = func(*http.Request, []*http.Request) error { return http.ErrUseLastResponse }
+	req, err := http.NewRequest(http.MethodGet, webReleases+"/latest", nil)
+	if err != nil {
+		return "", err
+	}
+	req.Header.Set("User-Agent", "4FusionLab-CommunityStore-Installer")
+	response, err := probe.Do(req)
+	if err != nil {
+		return "", err
+	}
+	defer response.Body.Close()
+	switch response.StatusCode {
+	case http.StatusMovedPermanently, http.StatusFound, http.StatusSeeOther, http.StatusTemporaryRedirect, http.StatusPermanentRedirect:
+	case http.StatusNotFound:
+		return "", errNoRelease
+	default:
+		return "", fmt.Errorf("expected a release redirect, got HTTP %d", response.StatusCode)
+	}
+	location, err := response.Location()
+	if err != nil {
+		return "", err
+	}
+	// A canonical release URL has exactly our origin and repository, plus one numeric stable tag.
+	tag, found := strings.CutPrefix(location.String(), webReleases+"/tag/")
+	if !found || !stableTag.MatchString(tag) {
+		return "", errors.New("unexpected release redirect target")
+	}
+	return tag, nil
+}
+
+func releaseMetadata(client *http.Client, releaseURL, webReleases string) (string, string, error) {
 	metadata, status, err := download(client, releaseURL, 1<<20)
+	if status == http.StatusForbidden || status == http.StatusTooManyRequests {
+		tag, err := latestWebTag(client, webReleases)
+		return tag, "", err
+	}
 	if status == http.StatusNotFound {
-		return nil, "", errNoRelease
+		return "", "", errNoRelease
 	}
 	if err != nil {
-		return nil, "", err
+		return "", "", err
 	}
 	var release struct {
 		Tag        string         `json:"tag_name"`
@@ -79,10 +115,10 @@ func fetchRelease(client *http.Client, releaseURL, assetsURL string) ([]byte, st
 		Assets     []releaseAsset `json:"assets"`
 	}
 	if err := json.Unmarshal(metadata, &release); err != nil {
-		return nil, "", err
+		return "", "", err
 	}
 	if release.Draft || release.Prerelease || !stableTag.MatchString(release.Tag) {
-		return nil, "", errors.New("unexpected release tag or channel")
+		return "", "", errors.New("unexpected release tag or channel")
 	}
 
 	version := release.Tag[1:]
@@ -91,16 +127,27 @@ func fetchRelease(client *http.Client, releaseURL, assetsURL string) ([]byte, st
 	for _, asset := range release.Assets {
 		if (asset.Name == name || asset.Name == name+".sha256") && asset.State == "uploaded" {
 			if _, exists := assets[asset.Name]; exists {
-				return nil, "", errors.New("duplicate release asset")
+				return "", "", errors.New("duplicate release asset")
 			}
 			assets[asset.Name] = asset
 		}
 	}
 	if len(assets) != 2 {
-		return nil, "", errors.New("release is missing the ZIP or its SHA-256 file")
+		return "", "", errors.New("release is missing the ZIP or its SHA-256 file")
 	}
+	return release.Tag, assets[name].Digest, nil
+}
+
+func fetchRelease(client *http.Client, releaseURL, assetsURL string) ([]byte, string, error) {
+	reportProgress("release")
+	tag, digest, err := releaseMetadata(client, releaseURL, strings.TrimSuffix(assetsURL, "/download"))
+	if err != nil {
+		return nil, "", err
+	}
+	version := tag[1:]
+	name := product + "-" + version + ".zip"
 	reportProgress("download")
-	base := assetsURL + "/" + release.Tag + "/" + name
+	base := assetsURL + "/" + tag + "/" + name
 	checksum, _, err := download(client, base+".sha256", 1024)
 	if err != nil {
 		return nil, "", err
@@ -113,7 +160,7 @@ func fetchRelease(client *http.Client, releaseURL, assetsURL string) ([]byte, st
 	if err != nil || len(sum) != sha256.Size {
 		return nil, "", errors.New("invalid SHA-256")
 	}
-	if digest := assets[name].Digest; digest != "" && !strings.EqualFold(digest, "sha256:"+fields[0]) {
+	if digest != "" && !strings.EqualFold(digest, "sha256:"+fields[0]) {
 		return nil, "", errors.New("release metadata and checksum disagree")
 	}
 	archive, _, err := download(client, base, archiveMax)

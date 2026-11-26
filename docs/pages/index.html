@@ -1,0 +1,629 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Community Store — Add-ins for Autodesk Fusion</title>
+        <meta
+            name="description"
+            content="Discover community add-ins for Autodesk Fusion. Install stable releases from GitHub, compare versions and update your tools together in the Community Store palette."
+        />
+        <link
+            rel="canonical"
+            href="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <link
+            rel="alternate"
+            hreflang="ru"
+            href="https://4fusionlab.github.io/CommunityStore/ru/"
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="en_US" />
+        <meta
+            property="og:title"
+            content="Community Store — Add-ins for Autodesk Fusion"
+        />
+        <meta
+            property="og:description"
+            content="Discover community add-ins for Autodesk Fusion. Install stable releases from GitHub, compare versions and update your tools together in the Community Store palette."
+        />
+        <meta
+            property="og:url"
+            content="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <meta
+            property="og:image"
+            content="https://4fusionlab.github.io/CommunityStore/assets/share.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="icon" href="assets/mark.png" />
+        <link rel="stylesheet" href="style.css" />
+        <script defer src="views.js"></script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Community Store",
+                "applicationCategory": "DesignApplication",
+                "url": "https://4fusionlab.github.io/CommunityStore/",
+                "description": "Discover community add-ins for Autodesk Fusion. Install stable releases from GitHub, compare versions and update your tools together in the Community Store palette.",
+                "inLanguage": "en",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "4FusionLab",
+                    "url": "https://github.com/4FusionLab"
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <a class="skip" href="#main">Skip to content</a>
+        <header>
+            <div class="frame bar">
+                <a class="brand" href="./"
+                    ><img
+                        src="assets/mark.png"
+                        alt=""
+                        width="34"
+                        height="34"
+                    />Community Store</a
+                >
+                <nav>
+                    <a href="#tools">Add-ins</a><a href="#why">How it works</a
+                    ><a href="#developers">For developers</a>
+                </nav>
+                <a class="language" href="ru/" hreflang="ru">Русский</a>
+            </div>
+        </header>
+        <main id="main">
+            <section class="hero">
+                <img
+                    class="heroArt"
+                    src="assets/dragon-head.webp"
+                    width="1536"
+                    height="1024"
+                    fetchpriority="high"
+                    alt=""
+                />
+                <div class="frame heroContent">
+                    <p class="author">
+                        4FusionLab <span>/</span> Autodesk Fusion
+                    </p>
+                    <h1>GitHub add-ins.<br />Right inside Fusion.</h1>
+                    <p class="lead">
+                        Browse the community catalog while your design is open.
+                        Install an add-in, compare its installed version with the
+                        author’s latest release, and apply the updates you choose.
+                    </p>
+                    <p class="catalog-stat">
+                        <a href="#sources"
+                            >Add-ins in the default catalog ·
+                            <strong data-catalog-count>20</strong></a
+                        >
+                    </p>
+                    <div class="actions">
+                        <a class="primary" href="#install"
+                            >Get Community Store</a
+                        ><a href="#community">Explore the catalog</a>
+                    </div>
+                </div>
+            </section>
+            <section class="community" id="community">
+                <div class="frame block">
+                    <div class="directory">
+                        <div>
+                            <h2>One enclosure, three jobs</h2>
+                            <p>
+                                For an enclosure that comes in two sizes, save both
+                                variants in <a href="#paramood">Paramood</a> and switch between them in one file. Lay out a vent
+                                with
+                                <a href="#perfora">Perfora</a> by choosing a face and setting the hole spacing.
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                For a test print, select the finished parts and send
+                                them to OrcaSlicer with
+                                <a href="#exporto">ExporTo</a>. You’ll find all three add-ins in the default
+                                catalog.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="block frame tools" id="tools">
+                <div class="sectionIntro">
+                    <p class="label">4FusionLab / 8 add-ins</p>
+                    <h2>Choose a tool by task</h2>
+                </div>
+                <div class="explorer">
+                    <div class="choices">
+                        <a href="#paramood" data-project="paramood"
+                            ><b>Manage parameters and variants</b
+                            ><small>Paramood</small></a
+                        ><a href="#perfora" data-project="perfora"
+                            ><b>Perforate a panel</b><small>Perfora</small></a
+                        ><a href="#selectra" data-project="selectra"
+                            ><b>Select matching geometry</b
+                            ><small>Selectra</small></a
+                        ><a href="#ejix" data-project="ejix"
+                            ><b>Separate part of a solid</b
+                            ><small>Ejix</small></a
+                        ><a href="#mesora" data-project="mesora"
+                            ><b>Keep measurements in view</b
+                            ><small>Mesora</small></a
+                        ><a href="#exporto" data-project="exporto"
+                            ><b>Export a selection</b><small>ExporTo</small></a
+                        ><a href="#filamentra" data-project="filamentra"
+                            ><b>Choose a filament color</b
+                            ><small>Filamentra</small></a
+                        ><a href="#ruen" data-project="ruen"
+                            ><b>Use shortcuts in a Russian layout</b
+                            ><small>RuEn</small></a
+                        >
+                    </div>
+                    <div class="projects">
+                        <article id="paramood" class="project">
+                            <div class="paramood-pair">
+                                <figure>
+                                    <img
+                                        loading="lazy"
+                                        src="assets/paramood.webp"
+                                        alt="Parameter editor"
+                                    />
+                                    <figcaption>Formulas</figcaption>
+                                </figure>
+                                <figure>
+                                    <img
+                                        loading="lazy"
+                                        src="assets/paramood-variants.webp"
+                                        alt="Saved model variants"
+                                    />
+                                    <figcaption>Variants</figcaption>
+                                </figure>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Paramood</h3>
+                                    <p>
+                                        Keep several sizes of a design in one Fusion
+                                        file. Save parameter formulas and supported
+                                        feature states in a variant table, then switch
+                                        between sizes.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Paramood/releases/tag/v2.2.3"
+                                    aria-label="Paramood v2.2.3 release on GitHub"
+                                    >v2.2.3</a
+                                >
+                            </div>
+                        </article>
+                        <article id="perfora" class="project">
+                            <div class="cad">
+                                <img
+                                    loading="lazy"
+                                    src="assets/perfora.webp"
+                                    alt="Panel with a repeating perforation pattern"
+                                />
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Perfora</h3>
+                                    <p>
+                                        Create a ventilation grille on a panel face. Set
+                                        the spacing, web thickness and edge clearance,
+                                        then compare honeycomb and Voronoi patterns.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Perfora/releases/tag/v1.2.2"
+                                    aria-label="Perfora v1.2.2 release on GitHub"
+                                    >v1.2.2</a
+                                >
+                            </div>
+                        </article>
+                        <article id="selectra" class="project">
+                            <div class="cad">
+                                <img
+                                    loading="lazy"
+                                    src="assets/selectra.webp"
+                                    alt="Matching geometry selected in Fusion"
+                                />
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Selectra</h3>
+                                    <p>
+                                        Select the wall of one hole to find similar
+                                        faces throughout the model. For contour work,
+                                        follow connected edges across bodies to select a
+                                        closed loop.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Selectra/releases/tag/v1.1.2"
+                                    aria-label="Selectra v1.1.2 release on GitHub"
+                                    >v1.1.2</a
+                                >
+                            </div>
+                        </article>
+                        <article id="ejix" class="project">
+                            <div class="ejixSketch">
+                                <canvas
+                                    width="740"
+                                    height="300"
+                                    aria-label="Cube with a half-depth blind pocket and its extracted core"
+                                    role="img"
+                                ></canvas
+                                ><label
+                                    >Lift the core out of the pocket<input
+                                        data-separation
+                                        type="range"
+                                        min="0"
+                                        max="100"
+                                        value="90"
+                                /></label>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Ejix</h3>
+                                    <p>
+                                        Extract a solid from a closed profile at a depth
+                                        you specify. Here the cut reaches halfway into
+                                        the cube, leaving a blind pocket and a matching
+                                        core.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Ejix/releases/tag/v1.1.0"
+                                    aria-label="Ejix v1.1.0 release on GitHub"
+                                    >v1.1.0</a
+                                >
+                            </div>
+                        </article>
+                        <article id="mesora" class="project">
+                            <div class="graphic mesora" aria-hidden="true">
+                                ⌀ 24 <i>mm</i>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Mesora</h3>
+                                    <p>
+                                        Pin reference dimensions to model geometry and
+                                        choose which to display. Distances, angles and
+                                        diameters update as the model changes.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Mesora/releases/tag/v1.1.1"
+                                    aria-label="Mesora v1.1.1 release on GitHub"
+                                    >v1.1.1</a
+                                >
+                            </div>
+                        </article>
+                        <article id="exporto" class="project">
+                            <div class="graphic exporto" aria-hidden="true">
+                                STEP <i> / </i> 3MF
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>ExporTo</h3>
+                                    <p>
+                                        Right-click selected bodies to open a 3MF in
+                                        OrcaSlicer, send an STL to Blender or save a
+                                        STEP file for another CAD system. Export bodies
+                                        together to preserve their relative positions.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/ExporTo/releases/tag/v1.2.1"
+                                    aria-label="ExporTo v1.2.1 release on GitHub"
+                                    >v1.2.1</a
+                                >
+                            </div>
+                        </article>
+                        <article id="filamentra" class="project">
+                            <div class="graphic filamentra" aria-hidden="true">
+                                <span class="swatches"
+                                    ><i></i><i></i><i></i><i></i
+                                ></span>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Filamentra</h3>
+                                    <p>
+                                        Find a filament color by manufacturer and
+                                        product line. Add the appearance to your design
+                                        and apply it to selected geometry.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Filamentra/releases/tag/v0.2.0"
+                                    aria-label="Filamentra v0.2.0 release on GitHub"
+                                    >v0.2.0</a
+                                >
+                            </div>
+                        </article>
+                        <article id="ruen" class="project">
+                            <div class="graphic ruen" aria-hidden="true">
+                                <kbd>Д</kbd> → <kbd>L</kbd>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>RuEn</h3>
+                                    <p>
+                                        Press the same physical key to run an assigned
+                                        Fusion letter shortcut while typing in Russian.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/RuEn/releases/tag/v1.1.2"
+                                    aria-label="RuEn v1.1.2 release on GitHub"
+                                    >v1.1.2</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="band" id="why">
+                <div class="frame block">
+                    <p class="label">Inside the Fusion palette</p>
+                    <h2>Find, install and update add-ins</h2>
+                    <div class="palette-tour">
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="assets/palette-catalog-en.webp"
+                                    width="640"
+                                    height="750"
+                                    alt="Catalog search results in the Fusion palette"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Find an add-in</h3>
+                                <p>
+                                    Search by name. Open a result to read the
+                                    author’s description.
+                                </p>
+                            </figcaption>
+                        </figure>
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="assets/palette-single-install-en.webp"
+                                    width="640"
+                                    height="705"
+                                    alt="Add-in details and installation controls"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Choose a package</h3>
+                                <p>
+                                    Choose Install on the add-in page. If a
+                                    release has several packages, choose the one
+                                    for your system.
+                                </p>
+                            </figcaption>
+                        </figure>
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="assets/palette-installed-en.webp"
+                                    width="640"
+                                    height="765"
+                                    alt="Installed add-ins with versions and startup settings"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Review updates</h3>
+                                <p>
+                                    Select Update all to see the proposed versions
+                                    together. Review the list and confirm once.
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <p class="native-note">
+                        You can also manage startup settings in Fusion’s Scripts and
+                        Add-Ins dialog.
+                        <a
+                            href="https://help.autodesk.com/cloudhelp/ENU/Fusion-Model/files/SLD-ADD-IN-TOOLS.htm"
+                            >Open Fusion help</a
+                        >
+                    </p>
+                </div>
+            </section>
+            <section class="frame block info" id="sources">
+                <div>
+                    <p class="label">Community catalog</p>
+                    <h2>Authors in the default catalog</h2>
+                </div>
+                <div>
+                    <p>
+                        The Store checks these GitHub accounts for add-in releases.
+                        Add another author in the palette to include their tools in
+                        your catalog.
+                    </p>
+                    <ul data-owners></ul>
+                    <a
+                        data-source-config
+                        href="https://raw.githubusercontent.com/4FusionLab/CommunityStore/refs/heads/main/trusted-stores.json"
+                        >View the source list on GitHub</a
+                    >
+                </div>
+            </section>
+            <section class="frame block info">
+                <div><h2>Using Community Store</h2></div>
+                <div>
+                    <details>
+                        <summary>How do I add an author?</summary>
+                        <p>
+                            Paste a GitHub profile, organization or repository URL
+                            into Sources. Any of these connects the entire account.
+                            Browse its add-ins, screenshots and READMEs in the
+                            palette.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Which package should I install?</summary>
+                        <p>
+                            Choose a stable release. The palette marks packages for
+                            your operating system and checks the digest, version and
+                            add-in ID where available. You can open prereleases on
+                            GitHub.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>When does the Store check for updates?</summary>
+                        <p>
+                            By default, the Store checks at Fusion startup and every
+                            30 minutes, even with the palette closed. Change the
+                            interval in Settings. When you apply updates, you can see
+                            the result for each add-in.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>What happens to my local files?</summary>
+                        <p>
+                            Updating a Store-managed add-in backs up its previous
+                            folder. Unlinking a repository leaves its files in place.
+                            To recover an archived add-in, copy its folder to a
+                            permanent location and link it again in Fusion.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Do I need a GitHub account?</summary>
+                        <p>
+                            You can browse, install and update public add-ins while
+                            signed out. Signing in uses your account’s GitHub API
+                            quota.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Where can I update the Store or get help?</summary>
+                        <p>
+                            Open Settings to check for Store updates, export
+                            diagnostic logs or replay the first-run guide. To report
+                            a problem with an add-in or source, open its entry in the
+                            palette.
+                        </p>
+                    </details>
+                </div>
+            </section>
+            <section id="install" class="installBand">
+                <div class="frame block">
+                    <h2>Install Community Store</h2>
+                    <div class="manual-guide">
+                        <a class="manualZip" data-zip href="https://github.com/4FusionLab/CommunityStore/releases/download/v1.0.0/CommunityStore-1.0.0.zip">Download ZIP · v1.0.0</a>
+                        <ol>
+                            <li>
+                                <strong>Unpack the archive</strong
+                                ><span
+                                    >Extract the downloaded ZIP to a permanent folder.</span
+                                >
+                            </li>
+                            <li>
+                                <strong>Link the folder in Fusion</strong
+                                ><span
+                                    >Open
+                                    <b
+                                        >Utilities → Add-Ins → Scripts and
+                                        Add-Ins</b
+                                    >. Click <b>+</b> and select the
+                                    <code>CommunityStore</code> folder
+                                    containing
+                                    <code>CommunityStore.manifest</code> and
+                                    <code>CommunityStore.py</code>.</span
+                                >
+                            </li>
+                            <li>
+                                <strong>Start the Store</strong
+                                ><span
+                                    >Click <b>Run</b> and enable
+                                    <b>Run on Startup</b>. Open Community Store from the Add-Ins panel in
+                                    Design.</span
+                                >
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="downloads" data-installers hidden>
+                        <div class="platform" hidden>
+                            <strong>Windows</strong
+                            ><small>Run the Setup file (.exe).</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-Windows-Setup.exe"
+                                data-download="Download EXE"
+                                >View releases</a
+                            >
+                        </div>
+                        <div class="platform" hidden>
+                            <strong>macOS</strong
+                            ><small
+                                >Open the DMG and run Install Community
+                                Store.</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-macOS.dmg"
+                                data-download="Download DMG"
+                                >View releases</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="frame">
+                <section
+                    class="info block"
+                    id="developers"
+                    aria-labelledby="developers-title"
+                >
+                    <div>
+                        <h2 id="developers-title">For developers</h2>
+                    </div>
+                    <div>
+                        <p>
+                            Attach your add-in’s ZIP to a GitHub release so people
+                            can install it from the palette. The guide shows how to
+                            structure the ZIP, prepare the manifest and write the
+                            README users see in the catalog.
+                        </p>
+                        <a href="publisher.html">Publisher guide</a>
+                        <p>
+                            To reach everyone using the default catalog, submit your
+                            GitHub profile or organization and a link to one
+                            published release.
+                        </p>
+                        <a
+                            href="https://github.com/4FusionLab/CommunityStore/issues/new?template=request-source.yml"
+                            >Submit a catalog source</a
+                        >
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <div class="frame bar">
+                <b>4FusionLab / Community Store</b
+                ><a href="https://github.com/4FusionLab/CommunityStore"
+                    >GitHub</a
+                >
+            </div>
+        </footer>
+    </body>
+</html>

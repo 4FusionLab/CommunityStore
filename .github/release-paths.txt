@@ -1,4 +1,5 @@
-# Distribution inputs only; documentation, tests, CI and policy do not publish.
-FusionAddin/**
+# Only shipped add-in inputs may trigger an automatic GitHub Release.
+CommunityStore/**
 scripts/build.py
 .fusion-addin.json
+LICENSE

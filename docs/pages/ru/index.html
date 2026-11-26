@@ -1,0 +1,641 @@
+<!doctype html>
+<html lang="ru">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Community Store — дополнения для Autodesk Fusion</title>
+        <meta
+            name="description"
+            content="Каталог дополнений сообщества для Autodesk Fusion. Устанавливайте стабильные релизы с GitHub, сравнивайте версии и обновляйте инструменты из палитры Community Store."
+        />
+        <link
+            rel="canonical"
+            href="https://4fusionlab.github.io/CommunityStore/ru/"
+        />
+        <link
+            rel="alternate"
+            hreflang="en"
+            href="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <link
+            rel="alternate"
+            hreflang="ru"
+            href="https://4fusionlab.github.io/CommunityStore/ru/"
+        />
+        <link
+            rel="alternate"
+            hreflang="x-default"
+            href="https://4fusionlab.github.io/CommunityStore/"
+        />
+        <meta property="og:type" content="website" />
+        <meta property="og:locale" content="ru_RU" />
+        <meta
+            property="og:title"
+            content="Community Store — дополнения для Autodesk Fusion"
+        />
+        <meta
+            property="og:description"
+            content="Каталог дополнений сообщества для Autodesk Fusion. Устанавливайте стабильные релизы с GitHub, сравнивайте версии и обновляйте инструменты из палитры Community Store."
+        />
+        <meta
+            property="og:url"
+            content="https://4fusionlab.github.io/CommunityStore/ru/"
+        />
+        <meta
+            property="og:image"
+            content="https://4fusionlab.github.io/CommunityStore/assets/share.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
+        <link rel="icon" href="../assets/mark.png" />
+        <link rel="stylesheet" href="../style.css" />
+        <script defer src="../views.js"></script>
+        <script type="application/ld+json">
+            {
+                "@context": "https://schema.org",
+                "@type": "SoftwareApplication",
+                "name": "Community Store",
+                "applicationCategory": "DesignApplication",
+                "url": "https://4fusionlab.github.io/CommunityStore/ru/",
+                "description": "Каталог дополнений сообщества для Autodesk Fusion. Устанавливайте стабильные релизы с GitHub, сравнивайте версии и обновляйте инструменты из палитры Community Store.",
+                "inLanguage": "ru",
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "4FusionLab",
+                    "url": "https://github.com/4FusionLab"
+                }
+            }
+        </script>
+    </head>
+    <body>
+        <a class="skip" href="#main">К содержанию</a>
+        <header>
+            <div class="frame bar">
+                <a class="brand" href="./"
+                    ><img
+                        src="../assets/mark.png"
+                        alt=""
+                        width="34"
+                        height="34"
+                    />Community Store</a
+                >
+                <nav>
+                    <a href="#tools">Дополнения</a><a href="#why">Как это работает</a
+                    ><a href="#developers">Разработчикам</a>
+                </nav>
+                <a class="language" href="../" hreflang="en">English</a>
+            </div>
+        </header>
+        <main id="main">
+            <section class="hero">
+                <img
+                    class="heroArt"
+                    src="../assets/dragon-head.webp"
+                    width="1536"
+                    height="1024"
+                    fetchpriority="high"
+                    alt=""
+                />
+                <div class="frame heroContent">
+                    <p class="author">
+                        4FusionLab <span>/</span> Autodesk Fusion
+                    </p>
+                    <h1>Дополнения с GitHub.<br />Прямо в Fusion.</h1>
+                    <p class="lead">
+                        Откройте каталог сообщества прямо во время работы над
+                        моделью. Установите дополнение, сравните свою версию с
+                        релизом автора и выберите, что обновить.
+                    </p>
+                    <p class="catalog-stat">
+                        <a href="#sources"
+                            >Дополнений в каталоге по умолчанию ·
+                            <strong data-catalog-count>20</strong></a
+                        >
+                    </p>
+                    <div class="actions">
+                        <a class="primary" href="#install"
+                            >Установить Community Store</a
+                        ><a href="#community">Посмотреть каталог</a>
+                    </div>
+                </div>
+            </section>
+            <section class="community" id="community">
+                <div class="frame block">
+                    <div class="directory">
+                        <div>
+                            <h2>Один корпус, три задачи</h2>
+                            <p>
+                                Если корпус нужен в двух размерах, сохраните оба
+                                варианта в <a href="#paramood">Paramood</a> и переключайтесь между ними в одном файле. Для
+                                вентиляционной решётки выберите грань в
+                                <a href="#perfora">Perfora</a> и задайте шаг отверстий.
+                            </p>
+                        </div>
+                        <div>
+                            <p>
+                                Для пробной печати выделите готовые детали и
+                                отправьте их в OrcaSlicer через
+                                <a href="#exporto">ExporTo</a>. Все три дополнения входят в каталог по умолчанию.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <section class="block frame tools" id="tools">
+                <div class="sectionIntro">
+                    <p class="label">4FusionLab / 8 дополнений</p>
+                    <h2>Выберите инструмент под задачу</h2>
+                </div>
+                <div class="explorer">
+                    <div class="choices">
+                        <a href="#paramood" data-project="paramood"
+                            ><b>Сохранить варианты модели</b
+                            ><small>Paramood</small></a
+                        ><a href="#perfora" data-project="perfora"
+                            ><b>Перфорировать панель</b
+                            ><small>Perfora</small></a
+                        ><a href="#selectra" data-project="selectra"
+                            ><b>Выбрать похожую геометрию</b
+                            ><small>Selectra</small></a
+                        ><a href="#ejix" data-project="ejix"
+                            ><b>Отделить часть тела</b><small>Ejix</small></a
+                        ><a href="#mesora" data-project="mesora"
+                            ><b>Закрепить размеры на модели</b
+                            ><small>Mesora</small></a
+                        ><a href="#exporto" data-project="exporto"
+                            ><b>Экспортировать выбранные тела</b
+                            ><small>ExporTo</small></a
+                        ><a href="#filamentra" data-project="filamentra"
+                            ><b>Подобрать цвет филамента</b
+                            ><small>Filamentra</small></a
+                        ><a href="#ruen" data-project="ruen"
+                            ><b>Вызывать команды в русской раскладке</b
+                            ><small>RuEn</small></a
+                        >
+                    </div>
+                    <div class="projects">
+                        <article id="paramood" class="project">
+                            <div class="paramood-pair">
+                                <figure>
+                                    <img
+                                        loading="lazy"
+                                        src="../assets/paramood.webp"
+                                        alt="Редактор параметров"
+                                    />
+                                    <figcaption>Формулы</figcaption>
+                                </figure>
+                                <figure>
+                                    <img
+                                        loading="lazy"
+                                        src="../assets/paramood-variants.webp"
+                                        alt="Сохранённые варианты модели"
+                                    />
+                                    <figcaption>Варианты</figcaption>
+                                </figure>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Paramood</h3>
+                                    <p>
+                                        Храните несколько типоразмеров изделия в одном
+                                        файле Fusion. Для каждого варианта таблица
+                                        запоминает формулы параметров и состояния
+                                        поддерживаемых операций.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Paramood/releases/tag/v2.2.3"
+                                    aria-label="Релиз Paramood v2.2.3 на GitHub"
+                                    >v2.2.3</a
+                                >
+                            </div>
+                        </article>
+                        <article id="perfora" class="project">
+                            <div class="cad">
+                                <img
+                                    loading="lazy"
+                                    src="../assets/perfora.webp"
+                                    alt="Панель с повторяющимся рисунком перфорации"
+                                />
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Perfora</h3>
+                                    <p>
+                                        Постройте вентиляционную решётку на грани
+                                        панели. Задайте шаг, толщину перемычек и отступ
+                                        от кромки. Сравните два рисунка перфорации —
+                                        соты и ячейки Вороного.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Perfora/releases/tag/v1.2.2"
+                                    aria-label="Релиз Perfora v1.2.2 на GitHub"
+                                    >v1.2.2</a
+                                >
+                            </div>
+                        </article>
+                        <article id="selectra" class="project">
+                            <div class="cad">
+                                <img
+                                    loading="lazy"
+                                    src="../assets/selectra.webp"
+                                    alt="Выделенная геометрия в модели Fusion"
+                                />
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Selectra</h3>
+                                    <p>
+                                        Укажите стенку одного отверстия, чтобы выбрать
+                                        похожие грани во всей модели. Для работы с
+                                        контуром соберите замкнутую цепочку из рёбер
+                                        нескольких тел.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Selectra/releases/tag/v1.1.2"
+                                    aria-label="Релиз Selectra v1.1.2 на GitHub"
+                                    >v1.1.2</a
+                                >
+                            </div>
+                        </article>
+                        <article id="ejix" class="project">
+                            <div class="ejixSketch">
+                                <canvas
+                                    width="740"
+                                    height="300"
+                                    aria-label="Куб с глухой полостью до середины и извлечённая сердцевина"
+                                    role="img"
+                                ></canvas
+                                ><label
+                                    >Извлечение сердцевины<input
+                                        data-separation
+                                        type="range"
+                                        min="0"
+                                        max="100"
+                                        value="90"
+                                /></label>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Ejix</h3>
+                                    <p>
+                                        Выберите замкнутый профиль и задайте глубину, на
+                                        которую нужно отделить часть тела. На схеме
+                                        разрез доходит до середины куба. Получаются два
+                                        тела — куб с глухим карманом и сердцевина,
+                                        повторяющая его форму.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Ejix/releases/tag/v1.1.0"
+                                    aria-label="Релиз Ejix v1.1.0 на GitHub"
+                                    >v1.1.0</a
+                                >
+                            </div>
+                        </article>
+                        <article id="mesora" class="project">
+                            <div class="graphic mesora" aria-hidden="true">
+                                ⌀ 24 <i>мм</i>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Mesora</h3>
+                                    <p>
+                                        Закрепите справочные размеры на геометрии и
+                                        выберите, какие из них показывать. Расстояния,
+                                        углы и диаметры пересчитываются при изменении
+                                        модели.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Mesora/releases/tag/v1.1.1"
+                                    aria-label="Релиз Mesora v1.1.1 на GitHub"
+                                    >v1.1.1</a
+                                >
+                            </div>
+                        </article>
+                        <article id="exporto" class="project">
+                            <div class="graphic exporto" aria-hidden="true">
+                                STEP <i> / </i> 3MF
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>ExporTo</h3>
+                                    <p>
+                                        Выделите тела и откройте контекстное меню
+                                        Fusion. Можно передать 3MF в OrcaSlicer, открыть
+                                        STL в Blender или сохранить STEP для другой
+                                        САПР. При совместном экспорте тела сохраняют
+                                        взаимное положение.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/ExporTo/releases/tag/v1.2.1"
+                                    aria-label="Релиз ExporTo v1.2.1 на GitHub"
+                                    >v1.2.1</a
+                                >
+                            </div>
+                        </article>
+                        <article id="filamentra" class="project">
+                            <div class="graphic filamentra" aria-hidden="true">
+                                <span class="swatches"
+                                    ><i></i><i></i><i></i><i></i
+                                ></span>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>Filamentra</h3>
+                                    <p>
+                                        Подберите цвет филамента по производителю и
+                                        линейке. Добавьте образец в проект и примените
+                                        его к выбранной геометрии.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/Filamentra/releases/tag/v0.2.0"
+                                    aria-label="Релиз Filamentra v0.2.0 на GitHub"
+                                    >v0.2.0</a
+                                >
+                            </div>
+                        </article>
+                        <article id="ruen" class="project">
+                            <div class="graphic ruen" aria-hidden="true">
+                                <kbd>Д</kbd> → <kbd>L</kbd>
+                            </div>
+                            <div class="caption">
+                                <div>
+                                    <h3>RuEn</h3>
+                                    <p>
+                                        Назначенные буквенные команды Fusion работают и
+                                        в русской раскладке. Например, клавиша «Д»
+                                        вызывает команду, назначенную на L.
+                                    </p>
+                                </div>
+                                <a
+                                    href="https://github.com/4FusionLab/RuEn/releases/tag/v1.1.2"
+                                    aria-label="Релиз RuEn v1.1.2 на GitHub"
+                                    >v1.1.2</a
+                                >
+                            </div>
+                        </article>
+                    </div>
+                </div>
+            </section>
+            <section class="band" id="why">
+                <div class="frame block">
+                    <p class="label">Палитра Community Store</p>
+                    <h2>Как установить и обновить дополнение</h2>
+                    <div class="palette-tour">
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="../assets/palette-catalog-ru.webp"
+                                    width="640"
+                                    height="750"
+                                    alt="Результаты поиска в каталоге дополнений"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Найдите дополнение</h3>
+                                <p>
+                                    Введите название и откройте карточку, чтобы
+                                    прочитать описание автора.
+                                </p>
+                            </figcaption>
+                        </figure>
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="../assets/palette-single-install-ru.webp"
+                                    width="640"
+                                    height="705"
+                                    alt="Карточка дополнения с кнопкой установки"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Выберите пакет</h3>
+                                <p>
+                                    Нажмите «Установить» в карточке дополнения. Если
+                                    автор опубликовал несколько пакетов, выберите
+                                    подходящий для вашей ОС.
+                                </p>
+                            </figcaption>
+                        </figure>
+                        <figure>
+                            <div class="palette-frame">
+                                <img
+                                    loading="lazy"
+                                    src="../assets/palette-installed-ru.webp"
+                                    width="640"
+                                    height="765"
+                                    alt="Установленные дополнения, версии и параметры автозапуска"
+                                />
+                            </div>
+                            <figcaption>
+                                <h3>Проверьте обновления</h3>
+                                <p>
+                                    Нажмите «Обновить всё», чтобы увидеть список
+                                    новых версий. Проверьте его и подтвердите
+                                    установку.
+                                </p>
+                            </figcaption>
+                        </figure>
+                    </div>
+                    <p class="native-note">
+                        Автозапуск дополнений можно настроить и в штатном окне Fusion
+                        «Scripts and Add-Ins».
+                        <a
+                            href="https://help.autodesk.com/cloudhelp/ENU/Fusion-Model/files/SLD-ADD-IN-TOOLS.htm"
+                            >Открыть справку Fusion</a
+                        >
+                    </p>
+                </div>
+            </section>
+            <section class="frame block info" id="sources">
+                <div>
+                    <p class="label">Каталог сообщества</p>
+                    <h2>Авторы в каталоге по умолчанию</h2>
+                </div>
+                <div>
+                    <p>
+                        Store проверяет релизы этих авторов на GitHub. Чтобы видеть
+                        дополнения другого автора в своём каталоге, добавьте его в
+                        палитре.
+                    </p>
+                    <ul data-owners></ul>
+                    <a
+                        data-source-config
+                        href="https://raw.githubusercontent.com/4FusionLab/CommunityStore/refs/heads/main/trusted-stores.json"
+                        >Посмотреть список источников на GitHub</a
+                    >
+                </div>
+            </section>
+            <section class="frame block info">
+                <div><h2>Работа с Community Store</h2></div>
+                <div>
+                    <details>
+                        <summary>Как добавить автора?</summary>
+                        <p>
+                            В разделе «Источники» укажите ссылку на профиль,
+                            организацию или репозиторий GitHub. Даже по ссылке на
+                            один репозиторий Store подключит все подходящие
+                            дополнения автора. Описания, иллюстрации и README
+                            доступны в палитре.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Как выбрать пакет для моей ОС?</summary>
+                        <p>
+                            Выберите стабильный релиз. Палитра отмечает пакеты для
+                            вашей ОС. Перед установкой Store сверяет доступные данные
+                            о пакете — контрольную сумму, версию и идентификатор
+                            дополнения. Предварительные релизы можно открыть на
+                            GitHub.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Когда Store проверяет обновления?</summary>
+                        <p>
+                            По умолчанию проверка идёт при запуске Fusion и каждые 30
+                            минут, даже если палитра закрыта. Интервал можно изменить
+                            в настройках. После обновления Store покажет результат по
+                            каждому дополнению.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Что происходит с локальными файлами?</summary>
+                        <p>
+                            При обновлении дополнения, установленного через Store,
+                            сохраняется копия предыдущей папки. При отвязке
+                            репозитория файлы остаются на месте. Чтобы восстановить
+                            дополнение из архива, скопируйте его папку в постоянное
+                            место и снова подключите в Fusion.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>Нужен ли аккаунт GitHub?</summary>
+                        <p>
+                            Публичные дополнения можно искать, устанавливать и
+                            обновлять без регистрации. Если войти в GitHub, Store
+                            будет использовать лимит запросов вашего аккаунта.
+                        </p>
+                    </details>
+                    <details>
+                        <summary>
+                            Где обновить Store и получить помощь?
+                        </summary>
+                        <p>
+                            В настройках можно проверить обновления самого Store,
+                            выгрузить журналы диагностики или ещё раз пройти вводное
+                            обучение. Сообщить о проблеме с дополнением или
+                            источником можно из палитры.
+                        </p>
+                    </details>
+                </div>
+            </section>
+            <section id="install" class="installBand">
+                <div class="frame block">
+                    <h2>Установите Community Store</h2>
+                    <div class="manual-guide">
+                        <a class="manualZip" data-zip href="https://github.com/4FusionLab/CommunityStore/releases/download/v1.0.0/CommunityStore-1.0.0.zip">Скачать ZIP · v1.0.0</a>
+                        <ol>
+                            <li>
+                                <strong>Распакуйте архив</strong
+                                ><span
+                                    >Распакуйте скачанный ZIP в постоянную папку.</span
+                                >
+                            </li>
+                            <li>
+                                <strong>Подключите папку в Fusion</strong
+                                ><span
+                                    >Откройте
+                                    <b
+                                        >Utilities → Add-Ins → Scripts and
+                                        Add-Ins</b
+                                    >. Нажмите <b>+</b> и выберите папку
+                                    <code>CommunityStore</code>, где лежат
+                                    <code>CommunityStore.manifest</code> и
+                                    <code>CommunityStore.py</code>.</span
+                                >
+                            </li>
+                            <li>
+                                <strong>Запустите магазин</strong
+                                ><span
+                                    >Нажмите <b>Run</b> и включите
+                                    <b>Run on Startup</b>. Откройте Community Store на панели Add-Ins в
+                                    рабочей области Design.</span
+                                >
+                            </li>
+                        </ol>
+                    </div>
+                    <div class="downloads" data-installers hidden>
+                        <div class="platform" hidden>
+                            <strong>Windows</strong
+                            ><small>Запустите файл Setup (.exe).</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-Windows-Setup.exe"
+                                data-download="Скачать EXE"
+                                >Открыть релизы</a
+                            >
+                        </div>
+                        <div class="platform" hidden>
+                            <strong>macOS</strong
+                            ><small
+                                >Откройте DMG и запустите Install Community
+                                Store.</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-macOS.dmg"
+                                data-download="Скачать DMG"
+                                >Открыть релизы</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <div class="frame">
+                <section
+                    class="info block"
+                    id="developers"
+                    aria-labelledby="developers-title"
+                >
+                    <div>
+                        <h2 id="developers-title">Разработчикам</h2>
+                    </div>
+                    <div>
+                        <p>
+                            Приложите ZIP с дополнением к релизу на GitHub, чтобы
+                            пользователи могли установить его из палитры. В
+                            руководстве описаны структура архива, манифест и README,
+                            который увидят в каталоге.
+                        </p>
+                        <a href="publisher.html"
+                            >Руководство для авторов</a
+                        >
+                        <p>
+                            Чтобы ваше дополнение появилось в каталоге по умолчанию,
+                            укажите в заявке свой профиль или организацию на GitHub и
+                            ссылку на опубликованный релиз.
+                        </p>
+                        <a
+                            href="https://github.com/4FusionLab/CommunityStore/issues/new?template=request-source-ru.yml"
+                            >Предложить источник для каталога</a
+                        >
+                    </div>
+                </section>
+            </div>
+        </main>
+        <footer>
+            <div class="frame bar">
+                <b>4FusionLab / Community Store</b
+                ><a href="https://github.com/4FusionLab/CommunityStore"
+                    >GitHub</a
+                >
+            </div>
+        </footer>
+    </body>
+</html>

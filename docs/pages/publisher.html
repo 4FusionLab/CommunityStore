@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+    <meta charset="utf-8" /><meta
+        name="viewport"
+        content="width=device-width,initial-scale=1"
+    /><title>Publisher guide · Community Store</title
+    ><link rel="stylesheet" href="style.css" />
+    <link
+        rel="canonical"
+        href="https://4fusionlab.github.io/CommunityStore/publisher.html"
+    /><link
+        rel="alternate"
+        hreflang="ru"
+        href="https://4fusionlab.github.io/CommunityStore/ru/publisher.html"
+    /><link
+        rel="alternate"
+        hreflang="en"
+        href="https://4fusionlab.github.io/CommunityStore/publisher.html"
+    />
+    <main class="guide frame">
+        <a href="./">← Community Store</a>
+        <h1 id="publish-a-fusion-add-in-for-community-store">
+            Publish a Fusion add-in for Community Store
+        </h1>
+        <p>
+            <a href="ru/publisher.html">Русская версия</a> ·
+            <a href="./">Community Store</a>
+        </p>
+        <p>
+            This guide is for authors and distributors who already build an
+            Autodesk Fusion add-in. Use it to make a GitHub repository
+            discoverable and give users an installable release and a useful
+            Marketplace page.
+        </p>
+        <p>
+            This guide covers Community Store 1.0.0.
+            <a href="https://github.com/4FusionLab/CommunityStore/releases/tag/v1.0.0">Download Community Store</a>
+        </p>
+        <h2 id="connect-the-github-owner-and-make-the-add-in-discoverable">
+            Connect the GitHub owner and make the add-in discoverable
+        </h2>
+        <ol type="1">
+            <li>
+                Use a public repository owned by your GitHub user or
+                organization. Community Store skips private, archived, and
+                forked repositories, and repository names starting with a dot.
+            </li>
+            <li>
+                For a GitHub owner outside the default list, tell users to open
+                <strong>Marketplace → Sources</strong> and enter the owner's
+                login, profile URL, or repository URL. For example,
+                <code>https://github.com/ExampleStudio/PanelTool</code> adds all
+                eligible repositories owned by <code>ExampleStudio</code> to
+                that installation. Public browsing works signed out. Signing in
+                uses the user's GitHub API quota.
+            </li>
+            <li>
+                Publish a GitHub Release. A Git tag alone or a draft release
+                will not create a card. Declare the add-in explicitly with one
+                of the following repository topics — <code>fusion-addin</code>,
+                <code>fusion360-addin</code>,
+                <code>autodesk-fusion-addin</code>, or
+                <code>fusion-360-addin</code>.
+            </li>
+        </ol>
+        <p>
+            Community Store also recognizes an ordinary Fusion add-in in the
+            selected tag's file tree. It looks for a JSON
+            <code>.manifest</code> beside a same-stem <code>.py</code>,
+            <code>.ts</code>, <code>.js</code>, <code>.dll</code>,
+            <code>.dylib</code>, or <code>.cpp</code> file. Use
+            <code>"type": "addin"</code> and
+            <code>"autodeskProduct": "Fusion"</code> or
+            <code>"Fusion360"</code>. Keep the manifest outside
+            <code>test</code>, <code>tests</code>, <code>samples</code>,
+            <code>examples</code>, and <code>docs</code>. Keep it at or below 32
+            KiB and easy to find. The Store checks up to six candidates,
+            preferring the repository's name, then shallower paths.
+        </p>
+        <p>
+            Without a recognized topic or tagged manifest, the Store can
+            discover an add-in by inspecting an eligible uploaded ZIP with a
+            GitHub digest and a supported version tag. A topic can get a release
+            listed without a valid installable package. Keep the tagged manifest
+            even when using a topic so the Store can identify the add-in by ID
+            and discover its bundled artwork.
+        </p>
+        <h2 id="request-inclusion-as-a-trusted-source">
+            Request inclusion as a trusted source
+        </h2>
+        <p>
+            To list your GitHub profile or organization by default, open a
+            public request with links to the owner and an example add-in
+            release. Community Store maintainers review the request. Once
+            approved and added, eligible add-ins from that owner appear in the
+            catalog.
+            <a
+                href="https://github.com/4FusionLab/CommunityStore/issues/new?template=request-source.yml"
+                >Request trusted source status</a
+            >
+        </p>
+        <p>
+            Community Store maintainers manage default owners in
+            <a
+                href="https://github.com/4FusionLab/CommunityStore/blob/main/trusted-stores.json"
+                >trusted-stores.json</a
+            >. After approving a request, maintainers add the GitHub login to
+            the <code>owners</code> array and merge the change into
+            <code>main</code>. This file is outside the add-in release paths, so
+            a change to this file alone updates the directory without publishing
+            a new Store release. Community Store checks for changes at launch,
+            when the palette opens, and during catalog checks. It keeps the last
+            valid list for offline use and preserves manually added sources. A
+            fresh installation uses <code>4FusionLab</code> until it retrieves a
+            valid list.
+        </p>
+        <h2 id="package-and-publish-a-release">
+            Package and publish a release
+        </h2>
+        <ol type="1">
+            <li>
+                Choose a tag such as <code>v1.2.0</code> and embed
+                <code>"version": "1.2.0"</code> in the ZIP manifest. The Store
+                compares numeric versions. It accepts two to four numeric
+                components, an optional <code>v</code> prefix, and optional
+                <code>+build</code>
+                metadata, which is ignored when comparing versions. Tags such as
+                <code>v1.2.0-beta.1</code> do not qualify for installation. Mark
+                previews as pre-releases on GitHub. They can appear in
+                Marketplace with a GitHub link, while Store installation and
+                version targets use stable releases.
+            </li>
+            <li>
+                Upload your installable <code>.zip</code> under
+                <strong>Assets</strong> in the GitHub Release for that tag.
+                GitHub's automatic <strong>Source code (zip)</strong> is
+                excluded. The Store requires the SHA-256 digest in GitHub's
+                asset metadata and verifies the downloaded bytes. A separate
+                <code>.sha256</code> file can help manual verification but
+                cannot supply the Store's required digest.
+                <a
+                    href="https://docs.github.com/en/repositories/releasing-projects-on-github/managing-releases-in-a-repository"
+                    >GitHub release instructions</a
+                >
+            </li>
+            <li>
+                Include one add-in folder with its matching manifest, entry
+                point, and runtime dependencies. Use the same spelling and case
+                for the folder and file stems for portability. Use a unique,
+                stable GUID in <code>id</code> and keep it consistent between
+                the tagged manifest, each asset, and later versions. The Store
+                accepts <code>.py</code>, <code>.ts</code>, or
+                <code>.js</code> as script entry points, <code>.dylib</code> on
+                macOS and a 64-bit AMD64 PE DLL on Windows. A
+                <code>.cpp</code> source file can help discovery but cannot
+                serve as an installable entry point. The archive limits are 150
+                MiB downloaded, 450 MiB uncompressed, and 15,000 entries. Use
+                ordinary relative paths with no symlinks, case-only collisions,
+                or Windows-reserved names.
+                <a
+                    href="https://help.autodesk.com/cloudhelp/ENU/Fusion-360-API/files/WritingDebugging_UM.htm"
+                    >Autodesk manifest and add-in layout</a
+                >
+            </li>
+            <li>
+                Declare the systems that the package actually supports in
+                <code>supportedOS</code> using <code>windows</code>,
+                <code>mac</code>, or <code>windows|mac</code>. The Store checks
+                the asset filename before download and the manifest and entry
+                point during staging. A compatible label in the picker does not
+                verify that the binary or its dependencies will run in Fusion.
+            </li>
+        </ol>
+        <table>
+            <thead>
+                <tr>
+                    <th>Package</th>
+                    <th>Example uploaded asset</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Same files for Windows and macOS</td>
+                    <td><code>PanelTool-1.2.0.zip</code></td>
+                </tr>
+                <tr>
+                    <td>Windows x64</td>
+                    <td><code>PanelTool-1.2.0-windows-x64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>macOS Apple silicon</td>
+                    <td><code>PanelTool-1.2.0-macos-arm64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>macOS Intel</td>
+                    <td><code>PanelTool-1.2.0-macos-x64.zip</code></td>
+                </tr>
+                <tr>
+                    <td>Universal macOS binary</td>
+                    <td><code>PanelTool-1.2.0-macos-universal2.zip</code></td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            Separate platform and architecture tokens with hyphens, underscores,
+            or dots. The Store recognizes <code>mac</code>, <code>macos</code>,
+            <code>darwin</code>, <code>osx</code>, <code>win</code>,
+            <code>windows</code>, <code>win64</code>, and
+            <code>windows64</code>. Use <code>x64</code> (also
+            <code>amd64</code>, <code>intel</code>, <code>x86_64</code>) or
+            <code>arm64</code> (also <code>aarch64</code>) with an explicit OS
+            token. Windows package selection expects x64. macOS selection checks
+            the architecture reported by the Store's process. ZIPs marked as
+            source, debug, Linux, or 32-bit builds are ineligible. When multiple
+            ZIPs are listed, the picker marks which ones are eligible on the
+            current system. Verify your actual package on every supported Fusion
+            platform.
+        </p>
+        <h2 id="link-an-existing-installation">
+            Link an existing installation
+        </h2>
+        <p>
+            For a manually installed or cloned add-in, first register its folder
+            in Fusion so it appears in <strong>My Add-Ins</strong>. Add the
+            GitHub owner to <strong>Sources</strong>. Community Store uses a
+            saved repository association for its own installs or the local
+            checkout's GitHub <code>origin</code> for version lookup. With
+            neither, it looks for a unique catalog match.
+        </p>
+        <p>
+            A matching manifest ID is the strongest automatic match. The Store
+            can also match by add-in name, using the manifest stem when
+            discovered or the repository name otherwise, or by GitHub
+            <code>origin</code>. When both IDs exist and differ, the same name
+            cannot establish a match. For folder updates without an ID, an exact
+            GitHub <code>origin</code> is required and the archive must match
+            the add-in name. Use a stable ID and a consistent name to avoid
+            ambiguous matches. Matching an installation can mark it
+            <strong>Installed</strong> in Marketplace. Applying a package update
+            is a separate action.
+        </p>
+        <h2 id="what-users-see">What users see</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Field</th>
+                    <th>Source</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Name, publisher, stars</td>
+                    <td>
+                        Marketplace uses the GitHub repository name, owner login
+                        and repository star count. The catalog sorts by stars.
+                        The local detail view uses the name reported by Fusion.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Publisher and author in the lists</td>
+                    <td>
+                        Marketplace shows the GitHub owner and, when available,
+                        the release manifest author. My Add-ins shows the author
+                        reported by Fusion and the GitHub owner if the
+                        installation is linked to a repository.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Description</td>
+                    <td>
+                        GitHub repository description, falling back to the first
+                        usable line of the selected release body. The card shows
+                        a short excerpt without Markdown formatting.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Author and installed version</td>
+                    <td>
+                        The detail header prefers the author reported by the
+                        local Fusion registration. It also shows the manifest's
+                        <code>author</code> when the Store has discovered it for
+                        the selected release. The installed version comes from
+                        the installed manifest, with the Fusion registration as
+                        fallback.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Repository version and publication date</td>
+                    <td>
+                        The selected GitHub Release's tag and publication date.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Release notes</td>
+                    <td>
+                        The selected GitHub Release's body, rendered as Markdown
+                        up to 16,000 characters. Put the summary first. The
+                        release title does not replace the tag.
+                    </td>
+                </tr>
+                <tr>
+                    <td>Version targets</td>
+                    <td>
+                        In <strong>My Add-Ins → Target</strong> or in the detail
+                        header, a matched installation can follow
+                        <strong>Latest</strong> or choose an available stable
+                        tag from release history. The list is sorted by numeric
+                        version and filters for a compatible ZIP with a GitHub
+                        digest. History loads in the background and cached
+                        versions may be shown when GitHub is unavailable.
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <p>
+            The Store starts with GitHub's latest stable release. If that
+            release cannot be installed on the current system, it selects the
+            first eligible stable release returned by release history. If no
+            eligible release exists, the latest release or the first published
+            history entry can still appear without an install action. Both the
+            README and the release notes in the detail page follow the release
+            selected for Marketplace, even if a user chooses a different
+            installed add-in target.
+        </p>
+        <h2 id="write-the-marketplace-readme">Write the Marketplace README</h2>
+        <p>
+            Put UTF-8 <code>README.md</code> and <code>README.ru.md</code> in
+            the repository root <strong>at the release tag</strong>. The Store
+            does not fetch from the default branch when rendering a release.
+            English reads <code>README.md</code> only. Russian tries
+            <code>README.ru.md</code> first, then <code>README.md</code> if the
+            Russian file is missing, zero-length, or otherwise unavailable. A
+            whitespace-only Russian file can suppress the fallback and show the
+            README as unavailable. The limit is 96 KiB per file. Use the exact
+            filename case and include both versions and their images before
+            tagging.
+        </p>
+        <p>
+            <strong>Settings → Display language</strong> selects English,
+            Russian, or the system display language. Unsupported system
+            languages fall back to English. This setting controls the Store
+            interface and README selection. Localize your own Fusion commands
+            and controls separately. Keep the manifest's localized descriptions
+            for Fusion and write GitHub descriptions and release notes in the
+            languages you want readers to see. The Store displays those GitHub
+            fields as supplied, regardless of the display language.
+        </p>
+        <p>
+            The detail page shows <strong>Read README</strong> and a link to the
+            selected file on GitHub. It indicates loading and unavailability.
+            Headings, paragraphs, lists, emphasis, blockquotes, code, and tables
+            are supported. A limited set of HTML elements such as
+            <code>&lt;details&gt;</code> and <code>&lt;summary&gt;</code> is
+            also supported. Interactive embeds, scripts, styles, and most HTML
+            attributes are removed. Use explicit Markdown links. HTTPS links
+            open in the browser, and relative links, including fragment links,
+            resolve to the tagged file on GitHub. Plain URLs are not
+            automatically linked. Release notes use the same text renderer, with
+            relative links based on the tagged <code>README.md</code> and no
+            inline image loading.
+        </p>
+        <h3 id="logos-and-screenshots">Logos and screenshots</h3>
+        <ul>
+            <li>
+                Use PNG, JPEG (<code>.jpg</code> or <code>.jpeg</code>), or WebP
+                images, up to <strong>1 MiB</strong> each and
+                <strong>4096 pixels</strong> on either side. Use ordinary
+                relative paths in direct Markdown image syntax or a quoted HTML
+                <code>&lt;img src="…"&gt;</code> at the selected tag. External
+                images, stock badges, SVGs, and GIFs cannot load inline. A
+                Markdown reference definition alone does not register an image
+                for loading. The renderer uses the alt text when an image is
+                unavailable.
+            </li>
+            <li>
+                For a README image to double as a screenshot, put it in a folder
+                such as <code>media/screenshot.png</code>. A root-level image or
+                one whose filename contains <code>icon</code> or
+                <code>logo</code> is treated as a logo candidate. README images
+                and attached images whose names contain <code>badge</code>,
+                <code>banner</code>, <code>avatar</code>, or
+                <code>shield</code> are skipped. The Store considers up to 12
+                distinct README image paths and attempts to display up to four
+                inline, considering screenshots before logo candidates.
+            </li>
+            <li>
+                The logo priority is a declared icon, then a release image asset
+                with <code>icon</code> or <code>logo</code> in its name, then
+                one of the first two ranked bundled PNGs under the tagged
+                add-in's <code>resources/</code>, then a README logo candidate.
+                The bundled names are <code>32x32@2x.png</code>,
+                <code>64x64.png</code>, and <code>32x32.png</code>. The
+                screenshot order is declared images, other eligible release
+                image assets, then README screenshots. Up to eight eligible
+                release image attachments are considered. The detail page shows
+                up to three screenshots. The Marketplace card shows the first
+                screenshot, then falls back to the logo or a placeholder.
+            </li>
+            <li>
+                For explicit artwork, add a root
+                <code>community-store.json</code> at the tag with relative
+                raster paths. Use <code>icon</code>, <code>preview</code>, and
+                up to six paths in <code>screenshots</code>. The Store reads
+                this config when it finds it alongside a recognized manifest in
+                the tagged tree search. The config and release attachments are
+                shared across display languages. Use images in the localized
+                READMEs if you want the copies to reference different
+                illustrations.
+            </li>
+        </ul>
+        <h2 id="minimal-example">Minimal example</h2>
+        <p>
+            A fictional <code>ExampleStudio/PanelTool</code> repository at tag
+            <code>v1.2.0</code> can have this layout. Use your real add-in files
+            and images.
+        </p>
+        <pre class="text"><code>README.md
+README.ru.md
+media/
+  logo.png
+  screenshot.png
+PanelTool/
+  PanelTool.manifest
+  PanelTool.py</code></pre>
+        <p><code>PanelTool/PanelTool.manifest</code></p>
+        <div class="sourceCode" id="cb2">
+            <pre
+                class="sourceCode json"
+            ><code class="sourceCode json"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">{</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;autodeskProduct&quot;</span><span class="fu">:</span> <span class="st">&quot;Fusion&quot;</span><span class="fu">,</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;type&quot;</span><span class="fu">:</span> <span class="st">&quot;addin&quot;</span><span class="fu">,</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;id&quot;</span><span class="fu">:</span> <span class="st">&quot;cee740c8-fe09-4e15-abc7-0fdc760a23f9&quot;</span><span class="fu">,</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;author&quot;</span><span class="fu">:</span> <span class="st">&quot;Example Studio&quot;</span><span class="fu">,</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;description&quot;</span><span class="fu">:</span> <span class="fu">{</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;&quot;</span><span class="fu">:</span> <span class="st">&quot;Create perforated panels.&quot;</span><span class="fu">,</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    <span class="dt">&quot;1049&quot;</span><span class="fu">:</span> <span class="st">&quot;Создавайте перфорированные панели.&quot;</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">},</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;version&quot;</span><span class="fu">:</span> <span class="st">&quot;1.2.0&quot;</span><span class="fu">,</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;runOnStartup&quot;</span><span class="fu">:</span> <span class="kw">false</span><span class="fu">,</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="dt">&quot;supportedOS&quot;</span><span class="fu">:</span> <span class="st">&quot;windows|mac&quot;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a><span class="fu">}</span></span></code></pre>
+        </div>
+        <p><code>README.md</code></p>
+        <div class="sourceCode" id="cb3">
+            <pre
+                class="sourceCode markdown"
+            ><code class="sourceCode markdown"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># PanelTool for Autodesk Fusion</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">Русская версия</span><span class="co">](README.ru.md)</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>Create perforated panels with a configurable hole pitch.</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="al">![PanelTool logo](media/logo.png)</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## In Fusion</span></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>Open **PanelTool**, set the pitch, and preview the hole pattern.</span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="al">![Preview of a perforated panel](media/screenshot.png)</span></span></code></pre>
+        </div>
+        <p><code>README.ru.md</code></p>
+        <div class="sourceCode" id="cb4">
+            <pre
+                class="sourceCode markdown"
+            ><code class="sourceCode markdown"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu"># PanelTool для Autodesk Fusion</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co">[</span><span class="ot">English</span><span class="co">](README.md)</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>Создавайте перфорированные панели с настраиваемым шагом отверстий.</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a><span class="al">![Логотип PanelTool](media/logo.png)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a><span class="fu">## В Fusion</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>Откройте **PanelTool**, задайте шаг и посмотрите предварительную раскладку отверстий.</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a><span class="al">![Предпросмотр перфорированной панели](media/screenshot.png)</span></span></code></pre>
+        </div>
+        <p>
+            Publish a stable GitHub Release tagged <code>v1.2.0</code> with the
+            notes “Added a hole-pattern preview. / Добавлен предварительный
+            просмотр раскладки отверстий.” Upload
+            <code>PanelTool-1.2.0.zip</code> containing
+            <code>PanelTool/PanelTool.manifest</code> and
+            <code>PanelTool/PanelTool.py</code>, plus any dependencies your
+            add-in needs. Confirm GitHub shows the ZIP's digest. For a real
+            release with an uploaded installable ZIP and digest, see
+            <a href="https://github.com/4FusionLab/ExporTo/releases/tag/v1.2.0"
+                >ExporTo v1.2.0</a
+            >.
+        </p>
+        <h2 id="check-the-result">Check the result</h2>
+        <ul>
+            <li>
+                <strong>No card.</strong> Check the owner's login in
+                <strong>Sources</strong>, repository visibility, the published
+                release, and the topic or manifest evidence at the selected tag.
+                Refresh the catalog. If GitHub has limited requests, check the
+                retry time or sign in.
+            </li>
+            <li>
+                <strong>Card with no install action.</strong> Open the tagged
+                release on GitHub. Check that it is stable, its tag parses as a
+                version, and a compatible ZIP is uploaded and has an asset
+                digest. If installation starts and fails, check the manifest ID
+                and version, folder and entry-point names,
+                <code>supportedOS</code>, and ZIP contents.
+            </li>
+            <li>
+                <strong>Installed add-in has no version list.</strong> Check the
+                owner source, local Fusion registration, manifest ID and GitHub
+                <code>origin</code>. Check that the match is unique and that
+                release history contains a stable package for your system.
+                Refresh if the history is still loading or unavailable.
+            </li>
+            <li>
+                <strong>Wrong language or missing README.</strong> Check
+                <strong>Display language</strong>, the tag shown in the detail
+                page, exact root filenames, file size, and UTF-8 content. If
+                Russian falls back to English, open the Russian file directly at
+                that tag on GitHub. A newer file on the default branch needs to
+                be included in a subsequent release tag.
+            </li>
+            <li>
+                <strong>Missing logo or screenshot.</strong> Check the relative
+                path and case at the tag, image format and size, gallery
+                priority, and the inline image limit. Check English and Russian
+                separately.
+            </li>
+        </ul>
+    </main>
+</html>

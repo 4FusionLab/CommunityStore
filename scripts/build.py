@@ -9,7 +9,10 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
 VERSION_PATTERN = re.compile(r'(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\.(0|[1-9][0-9]*)\Z')
-SKIP_DIRS = {'__pycache__', '.git', '.venv', 'node_modules'}
+SKIP_DIRS = {'__pycache__', '.git', '.venv', '.vscode', 'node_modules'}
+LOCAL_PACKAGE_DIRS = {
+    'AddIns', '.community-store-staging', '.community-store-removed', '.community-store-updates',
+}
 SKIP_FILES = {'.DS_Store'}
 FORBIDDEN_SUFFIXES = {'.pyc', '.pyo', '.pem', '.p12', '.pfx', '.key'}
 FORBIDDEN_NAMES = {'.env', '.env.local', '.env.production'}
@@ -20,9 +23,10 @@ def candidate_files(directory):
     if directory.is_symlink():
         raise ValueError('Symlinked add-in directory is forbidden.')
     result = []
-    for path in sorted(directory.rglob('*')):
+    # pathlib's native sort folds case on Windows. Use the same ZIP order on every host.
+    for path in sorted(directory.rglob('*'), key=lambda item: item.relative_to(directory).parts):
         relative = path.relative_to(directory)
-        if any(part in SKIP_DIRS for part in relative.parts):
+        if relative.parts[0] in LOCAL_PACKAGE_DIRS or any(part in SKIP_DIRS for part in relative.parts):
             continue
         if path.is_symlink():
             raise ValueError('Symlinks are forbidden in a Fusion add-in ZIP: ' + str(path))
@@ -63,9 +67,15 @@ def build(root=ROOT, version='0.1.0', output=None, allow_template=False):
     files = candidate_files(directory)
     if manifest_path not in files or directory / (name + '.py') not in files:
         raise ValueError('The add-in entry point or manifest is missing.')
+    license_file = root / 'LICENSE'
+    if license_file.is_symlink() or not license_file.is_file():
+        raise ValueError('Missing product distribution license.')
+    if directory / 'LICENSE' in files:
+        raise ValueError('Keep the distribution license in the root LICENSE file.')
     with zipfile.ZipFile(archive, 'w', compression=zipfile.ZIP_STORED) as bundle:
-        for path in files:
-            member = name + '/' + path.relative_to(directory).as_posix()
+        for path in [*files, license_file]:
+            relative = path.name if path == license_file else path.relative_to(directory).as_posix()
+            member = name + '/' + relative
             data = path.read_bytes()
             if path == manifest_path:
                 data = (json.dumps(manifest, indent=2, ensure_ascii=False) + '\n').encode('utf-8')
@@ -76,7 +86,7 @@ def build(root=ROOT, version='0.1.0', output=None, allow_template=False):
     checksum = archive.with_suffix('.zip.sha256')
     checksum.write_text(
         hashlib.sha256(archive.read_bytes()).hexdigest() + '  ' + archive.name + '\n',
-        encoding='ascii',
+        encoding='ascii', newline='\n',
     )
     return archive, checksum
 

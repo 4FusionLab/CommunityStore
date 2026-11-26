@@ -183,7 +183,7 @@ for (const link of document.querySelectorAll(".directory a[href^='#']")) {
 
 async function showDefaultSources() {
     const response = await fetch(
-        document.querySelector("[data-source-config]").href,
+        "https://raw.githubusercontent.com/4FusionLab/CommunityStore/refs/heads/main/trusted-stores.json",
         { cache: "no-cache", referrerPolicy: "no-referrer" },
     );
     if (!response.ok) return;
@@ -205,5 +205,4 @@ async function showDefaultSources() {
         list.append(item);
     }
 }
-// The reference section always links directly to the current configuration.
 showDefaultSources().catch(() => {});

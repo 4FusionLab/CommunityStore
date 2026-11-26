@@ -139,3 +139,59 @@ func TestNoStableRelease(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestRateLimitedReleaseUsesVerifiedWebAssets(t *testing.T) {
+	archive := makeArchive(t, "")
+	for _, apiStatus := range []int{http.StatusForbidden, http.StatusTooManyRequests} {
+		for _, mismatch := range []bool{false, true} {
+			t.Run(fmt.Sprintf("%d/mismatch=%v", apiStatus, mismatch), func(t *testing.T) {
+				server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+					switch r.URL.Path {
+					case "/api":
+						w.WriteHeader(apiStatus)
+					case "/releases/latest":
+						http.Redirect(w, r, "/releases/tag/v"+testVersion, http.StatusFound)
+					case "/releases/download/v" + testVersion + "/" + testArchive + ".sha256":
+						payload := archive
+						if mismatch {
+							payload = []byte("different release")
+						}
+						fmt.Fprintf(w, "%x  %s\n", sha256.Sum256(payload), testArchive)
+					case "/releases/download/v" + testVersion + "/" + testArchive:
+						w.Write(archive)
+					default:
+						t.Errorf("unexpected request for %s", r.URL.Path)
+						http.NotFound(w, r)
+					}
+				}))
+				defer server.Close()
+				got, version, err := fetchRelease(server.Client(), server.URL+"/api", server.URL+"/releases/download")
+				if mismatch {
+					if err == nil || got != nil {
+						t.Fatal("accepted a mismatched ZIP")
+					}
+				} else if err != nil || version != testVersion || !bytes.Equal(got, archive) {
+					t.Fatalf("version %s: %v", version, err)
+				}
+			})
+		}
+	}
+}
+
+func TestWebTagOnlyAcceptsExactReleaseLocation(t *testing.T) {
+	for _, target := range []string{
+		"https://example.invalid/releases/tag/v1.0.0", "/other/tag/v1.0.0",
+		"/releases/tag/v1.0.0-rc1", "/releases/tag/v1.0.0?download=1",
+		"/releases/tag/v1.0.0/other", "/releases/tag/v1.0.0#fragment",
+	} {
+		t.Run(target, func(t *testing.T) {
+			server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+				http.Redirect(w, r, target, http.StatusFound)
+			}))
+			defer server.Close()
+			if tag, err := latestWebTag(server.Client(), server.URL+"/releases"); err == nil {
+				t.Fatalf("unexpected tag %s", tag)
+			}
+		})
+	}
+}

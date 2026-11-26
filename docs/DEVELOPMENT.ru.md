@@ -32,10 +32,12 @@ python scripts/build.py --version 1.0.0
 
 ## Установка в Fusion
 
-Публичный релиз 1.0.0 распространяется в виде ZIP. Для локальной проверки сетевых установщиков выполните команду ниже.
+В разделе Assets релиза Community Store 1.0.0 на GitHub доступны ZIP аддина Fusion, установочный EXE для Windows и DMG для macOS. Для повторной сборки перейдите на исходный коммит нужного установщика: [Windows Setup](https://github.com/4FusionLab/CommunityStore/commit/daca11cb357722a9acda717269e40cecba8c43d2) (`daca11c`) или [macOS DMG](https://github.com/4FusionLab/CommunityStore/commit/af5eaab2e08a9547cf795d082451183324096908) (`af5eaab`). Запустите сборщик для соответствующей платформы.
 
 ```bash
-python scripts/build_installers.py --platform all
+python scripts/build_installers.py --platform windows
+# На macOS из коммита установщика для macOS:
+python scripts/build_installers.py --platform macos
 ```
 
 Для обеих платформ загрузчик собирается с помощью Go. Используйте `--platform windows` при наличии NSIS 3 в PATH или `--platform macos` на Mac с Xcode Command Line Tools. Установщики и их файлы SHA-256 появятся в `dist/installers/`.
@@ -44,7 +46,7 @@ python scripts/build_installers.py --platform all
 
 После успешной первой установки и закрытия окна Windows-установщик перемещает запущенный EXE с локального диска в Корзину. На macOS приложение пробует извлечь образ, из которого его открыли, и перемещает этот DMG в Корзину. Если установка прервалась или завершилась ошибкой, файл остаётся для повторной попытки.
 
-Для публичной раздачи подпишите Windows-установщик через Authenticode. На macOS соберите приложение с `--mac-signing-identity` и сертификатом Developer ID Application, затем отправьте DMG на нотарификацию Apple и прикрепите к нему билет. Пересчитайте SHA-256 окончательных подписанных файлов.
+Перед загрузкой сверьте каждый готовый установщик с файлом SHA-256, который создал сборщик. Смонтируйте DMG и проверьте приложение установки. На тестовой Windows запустите Setup и проверьте весь процесс скачивания и установки аддина.
 
 В чистом пользовательском профиле закройте Fusion и запустите установщик. Откройте Fusion и проверьте **Design → Utilities → Add-Ins → Community Store**. Команда должна появиться без ручной регистрации и нажатия **Run**. Откройте каталог без входа в GitHub и снова перезапустите Fusion, чтобы проверить, что команда остаётся доступной. Повторите на Windows и macOS с файлами, скачанными через браузер. Если Community Store уже зарегистрирован из другой папки, используйте существующую установку, чтобы избежать дубликатов.
 

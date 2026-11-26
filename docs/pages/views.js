@@ -68,9 +68,11 @@ async function linkReleaseAssets() {
         if (!assetNames.has(link.dataset.installer)) continue;
         link.href = download + link.dataset.installer;
         link.textContent = link.dataset.download;
+        link.closest(".platform").hidden = false;
+        link.closest("[data-installers]").hidden = false;
     }
 }
-// Keep the static Releases links if the API request fails.
+// The versioned ZIP link also works without the GitHub API.
 linkReleaseAssets().catch(() => {});
 
 const separation = document.querySelector("[data-separation]");

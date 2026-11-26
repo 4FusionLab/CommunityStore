@@ -4,7 +4,7 @@
 
 This guide is for authors and distributors who already build an Autodesk Fusion add-in. Use it to make a GitHub repository discoverable and give users an installable release and a useful Marketplace page.
 
-**Release status.** As of November 26, 2026, Community Store has no published GitHub Release. This guide describes the current development build, including localized README loading, the Marketplace detail page, and the installed add-in version list. [Community Store releases](https://github.com/4FusionLab/CommunityStore/releases)
+This guide covers Community Store 1.0.0. [Download Community Store](https://github.com/4FusionLab/CommunityStore/releases/tag/v1.0.0)
 
 ## Connect the GitHub owner and make the add-in discoverable
 

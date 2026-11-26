@@ -1,14 +1,16 @@
 # Community Store for Autodesk Fusion
 
-[Русская версия](README.ru.md) · [Report an issue](https://github.com/4FusionLab/CommunityStore/issues)
+[Русская версия](README.ru.md) · [Download release](https://github.com/4FusionLab/CommunityStore/releases/latest) · [Report an issue](https://github.com/4FusionLab/CommunityStore/issues)
 
 Manage installed add-ins in Fusion and install published packages from GitHub Releases. Community Store uses existing Fusion manifests and release packages.
 
 [Publisher guide for third-party add-ins](docs/PUBLISHER_GUIDE.md)
 
-## Local installation
+![Installed add-ins in Community Store](docs/pages/assets/local-en.webp)
 
-1. Build the ZIP with the command below and extract it. The `CommunityStore` folder should contain `CommunityStore.py` and `CommunityStore.manifest`.
+## Installation
+
+1. Download `CommunityStore-1.0.0.zip` from **Assets** in the [1.0.0 GitHub release](https://github.com/4FusionLab/CommunityStore/releases/tag/v1.0.0) and extract it to a permanent folder. The `CommunityStore` folder should contain `CommunityStore.py` and `CommunityStore.manifest`.
 2. In Fusion, open **Utilities → Add-Ins → Scripts and Add-Ins**, add the folder, and select **Run**. The supplied manifest enables **Run on Startup**.
 3. Open **Community Store** from the **Add-Ins** panel in the Design workspace.
 
@@ -18,7 +20,7 @@ You can skip the first-run guide or restart it from **Settings → Reset tutoria
 
 - **My Add-ins** lists visible user add-ins from Fusion. Each registration has its own row, including registrations that point to the same files. The columns show installed and available versions, running status, and startup settings. Removal archives local installations in `.community-store-removed` next to the add-in directory. Linked repositories are unregistered and their files are kept. Add-ins managed by another installer are hidden in Fusion and their files are kept.
 - **Marketplace** discovers public add-in repositories with published releases from connected GitHub owners. Names, descriptions, stars, tags, and ZIP options come from GitHub. Results are sorted by star count. Published prereleases can appear with a GitHub link. Installation and updates from the palette use stable releases.
-- **Sources** in Marketplace shows how many add-ins are installed from each owner. A GitHub account, organization, or repository URL connects the entire owner. The default source is [4FusionLab](https://github.com/4FusionLab).
+- **Sources** in Marketplace shows how many add-ins are installed from each owner. A GitHub account, organization, or repository URL connects the entire owner. At startup, Store loads the [default source list](trusted-stores.json). A fresh installation starts with 4FusionLab if the list is unavailable.
 - **Settings** controls the check interval. By default, Community Store checks releases when Fusion starts and every 30 minutes, including while the palette is closed.
 
 Community Store uses the ZIP assets attached to a release. When several ZIPs are available, the palette offers a choice and marks the ones supported on the current platform. Before installing, it checks the SHA‑256 digest, version, and add-in ID when available.
@@ -36,10 +38,10 @@ If Fusion exits during a managed add-in update and the add-in is missing or fail
 ```bash
 python3 scripts/check_project.py
 python3 -m unittest discover -s tests -v
-python3 scripts/build.py --version 0.2.0
+python3 scripts/build.py --version 1.0.0
 ```
 
-The build writes a ZIP and a SHA‑256 file to `dist/`. The manifest declares macOS and Windows support. The palette and add-in management were checked in Fusion 2706.1.17 on macOS. A Windows community test candidate is available for native validation. [Windows installation, test scenarios and reporting](docs/acceptance/WINDOWS_COMMUNITY.md)
+The build writes a ZIP and a SHA‑256 file to `dist/`. The manifest declares macOS and Windows support. On macOS, Fusion 2706.1.17 restarted the 1.0.0 add-in and opened the palette with a populated list of installed add-ins. Native Fusion validation on Windows x64 remains open. [Windows installation, test scenarios and reporting](docs/acceptance/WINDOWS_COMMUNITY.md)
 
 [Development](docs/DEVELOPMENT.md) · [PolyForm Noncommercial License 1.0.0](LICENSE)
 

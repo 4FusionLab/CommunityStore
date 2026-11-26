@@ -167,12 +167,27 @@ class ReleasePackageTests(unittest.TestCase):
         symlink.create_system = 3
         symlink.external_attr = (stat.S_IFLNK | 0o777) << 16
         with tempfile.TemporaryDirectory() as directory:
-            for item in ("../escape.py", "Example/../escape.py", "Example\\escape.py",
+            for item in ("../escape.py", "Example/../escape.py",
                          "Example/bad?.py", "Example/files//", "Example/NUL.txt", "Example/CONIN$.txt",
                          "Example/conout$.data/file", "Example/AUX .txt", "Example/LPT².log",
                          "Example/folder./file", "Example/file ", symlink):
                 with self.subTest(item=item), self.assertRaises(ValueError):
                     self.stage(Path(directory), self.package(self.info, item))
+
+    def test_raw_member_name_is_checked_before_using_the_normalized_name(self):
+        # ZipInfo retains the decoded header in orig_filename. A Windows ZIP
+        # writer normalizes separators before writing, so model the reader here.
+        member = zipfile.ZipInfo("Example/file.txt")
+        member.orig_filename = r"Example\file.txt"
+        member.file_size = 0
+        with tempfile.TemporaryDirectory() as directory, patch.object(zipfile, "ZipFile") as reader:
+            archive = reader.return_value.__enter__.return_value
+            archive.infolist.return_value = [member]
+            with self.assertRaises(ValueError) as caught:
+                releases.extract(None, Path(directory))
+            self.assertEqual(caught.exception.args[0].key, "releases.unsafe_path")
+            archive.open.assert_not_called()
+            self.assertEqual(list(Path(directory).iterdir()), [])
 
     def test_rejects_ambiguous_directory_paths_on_case_sensitive_hosts(self):
         with tempfile.TemporaryDirectory() as directory:

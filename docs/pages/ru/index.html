@@ -539,46 +539,13 @@
             <section id="install" class="installBand">
                 <div class="frame block">
                     <h2>Установите Community Store</h2>
-                    <p>
-                        Перед запуском установщика сохраните проект и закройте
-                        Fusion. После установки откройте магазин через Design →
-                        Utilities → Add-Ins → Community Store.
-                    </p>
-                    <h3 class="method">Установщик · рекомендуемый способ</h3>
-                    <div class="downloads">
-                        <div class="platform">
-                            <strong>Windows</strong
-                            ><small>Запустите файл Setup (.exe).</small
-                            ><a
-                                href="https://github.com/4FusionLab/CommunityStore/releases"
-                                data-installer="CommunityStore-Windows-Setup.exe"
-                                data-download="Скачать EXE"
-                                >Открыть релизы</a
-                            >
-                        </div>
-                        <div class="platform">
-                            <strong>macOS</strong
-                            ><small
-                                >Откройте DMG и запустите Install Community
-                                Store.</small
-                            ><a
-                                href="https://github.com/4FusionLab/CommunityStore/releases"
-                                data-installer="CommunityStore-macOS.dmg"
-                                data-download="Скачать DMG"
-                                >Открыть релизы</a
-                            >
-                        </div>
-                    </div>
-
-                    <details class="manual-guide">
-                        <summary>Установить вручную из ZIP</summary>
+                    <div class="manual-guide">
+                        <a class="manualZip" data-zip href="https://github.com/4FusionLab/CommunityStore/releases/download/v1.0.0/CommunityStore-1.0.0.zip">Скачать ZIP · v1.0.0</a>
                         <ol>
                             <li>
                                 <strong>Распакуйте архив</strong
                                 ><span
-                                    >Скачайте ZIP с дополнением Community Store из
-                                    стабильного релиза. Распакуйте его туда, где
-                                    будете хранить дополнение.</span
+                                    >Распакуйте скачанный ZIP в постоянную папку.</span
                                 >
                             </li>
                             <li>
@@ -603,13 +570,31 @@
                                 >
                             </li>
                         </ol>
-                        <a
-                            class="manualZip"
-                            data-zip
-                            href="https://github.com/4FusionLab/CommunityStore/releases"
-                            >Найти ZIP на GitHub</a
-                        >
-                    </details>
+                    </div>
+                    <div class="downloads" data-installers hidden>
+                        <div class="platform" hidden>
+                            <strong>Windows</strong
+                            ><small>Запустите файл Setup (.exe).</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-Windows-Setup.exe"
+                                data-download="Скачать EXE"
+                                >Открыть релизы</a
+                            >
+                        </div>
+                        <div class="platform" hidden>
+                            <strong>macOS</strong
+                            ><small
+                                >Откройте DMG и запустите Install Community
+                                Store.</small
+                            ><a
+                                href="https://github.com/4FusionLab/CommunityStore/releases"
+                                data-installer="CommunityStore-macOS.dmg"
+                                data-download="Скачать DMG"
+                                >Открыть релизы</a
+                            >
+                        </div>
+                    </div>
                 </div>
             </section>
             <div class="frame">

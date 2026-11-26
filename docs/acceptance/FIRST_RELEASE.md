@@ -2,6 +2,12 @@
 
 [Русская версия](FIRST_RELEASE.ru.md)
 
+## 1.0.0 verification in Fusion on macOS
+
+The 1.0.0 ZIP has SHA-256 `4f843a0a6fb19c85501f39c1e70c672de8a0c242773e672facc2abe23a362e2a`. All 48 installed runtime, resource and manifest files matched the ZIP byte for byte. In an existing Fusion 2706.1.17 session on macOS 27.0.1 arm64, the registered add-in stopped and started again. Its controller reported 1.0.0 and the command opened the palette with a populated list of installed add-ins. **Run on Startup** was enabled. The Fusion document stayed clean.
+
+This run exercised an add-in restart in an open session. Clean-profile installation and full Fusion restarts are recorded below for earlier candidates. Native Windows x64 validation remains open.
+
 ## Windows x64 community test candidate
 
 **Candidate 0.2.0 is ready for community testing in Fusion for Windows x64.** The installable ZIP has SHA-256 `4b2004162db0dec62fc1c4649fc61c1af33040aae3a176454ea050c0c3e37536`. The tester kit contains the ZIP, checksum and guides in English and Russian. [Windows scenarios and reporting](WINDOWS_COMMUNITY.md)

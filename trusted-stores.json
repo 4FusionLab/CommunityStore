@@ -1,4 +1,9 @@
 {
   "schemaVersion": 1,
-  "owners": ["4FusionLab"]
+  "owners": [
+    "4FusionLab",
+    "fusion2van",
+    "Artem-Viveritsa",
+    "dwragon"
+  ]
 }

@@ -48,6 +48,7 @@
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="assets/mark.png" />
         <link rel="stylesheet" href="style.css" />
+        <script defer src="author-stars.js"></script>
         <script defer src="views.js"></script>
         <script type="application/ld+json">
             {
@@ -447,11 +448,14 @@
                 <div>
                     <p class="label">Community catalog</p>
                     <h2>Authors in the default catalog</h2>
-                </div>
-                <div>
-                    <p>
+                    <p class="source-copy">
                         Open Sources in your palette to add another GitHub author or organization alongside these accounts.
                     </p>
+                    <p class="source-key">Larger names closer to the center indicate more GitHub stars across an author’s catalog add-ins.</p>
+                    <button type="button" class="cloud-mode" hidden>Show as list</button>
+                </div>
+                <div class="author-cloud">
+                    <canvas aria-hidden="true"></canvas>
                     <ul data-owners></ul>
                 </div>
             </section>

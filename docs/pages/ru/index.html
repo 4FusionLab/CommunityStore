@@ -48,6 +48,7 @@
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="../assets/mark.png" />
         <link rel="stylesheet" href="../style.css" />
+        <script defer src="../author-stars.js"></script>
         <script defer src="../views.js"></script>
         <script type="application/ld+json">
             {
@@ -450,11 +451,14 @@
                 <div>
                     <p class="label">Каталог сообщества</p>
                     <h2>Авторы в каталоге по умолчанию</h2>
-                </div>
-                <div>
-                    <p>
+                    <p class="source-copy">
                         Откройте «Источники» в своей палитре, чтобы добавить к этим авторам профиль или организацию с GitHub.
                     </p>
+                    <p class="source-key">Размер имени и близость к центру зависят от суммы звёзд на аддинах автора в каталоге.</p>
+                    <button type="button" class="cloud-mode" hidden>Показать списком</button>
+                </div>
+                <div class="author-cloud">
+                    <canvas aria-hidden="true"></canvas>
                     <ul data-owners></ul>
                 </div>
             </section>

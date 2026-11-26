@@ -40,7 +40,7 @@ hero.addEventListener("pointerleave", () => {
     hero.style.removeProperty("--py");
 });
 
-async function linkReleaseAssets() {
+async function linkLatestZip() {
     const response = await fetch(
         "https://api.github.com/repos/4FusionLab/CommunityStore/releases/latest",
         { referrerPolicy: "no-referrer" },
@@ -64,16 +64,9 @@ async function linkReleaseAssets() {
     zip.href = download + zipName;
     zip.textContent =
         (russian ? "Скачать ZIP · " : "Download ZIP · ") + release.tag_name;
-    for (const link of document.querySelectorAll("[data-installer]")) {
-        if (!assetNames.has(link.dataset.installer)) continue;
-        link.href = download + link.dataset.installer;
-        link.textContent = link.dataset.download;
-        link.closest(".platform").hidden = false;
-        link.closest("[data-installers]").hidden = false;
-    }
 }
 // The versioned ZIP link also works without the GitHub API.
-linkReleaseAssets().catch(() => {});
+linkLatestZip().catch(() => {});
 
 const separation = document.querySelector("[data-separation]");
 const canvas = document.querySelector(".ejixSketch canvas");

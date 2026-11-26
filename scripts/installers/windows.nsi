@@ -74,6 +74,7 @@ release_missing:
   Goto failed
 installed:
   MessageBox MB_OK|MB_ICONINFORMATION "$(FoundExisting)" /SD IDOK
+  SetErrorLevel 0
   Quit
 failed:
   SetErrorLevel 1

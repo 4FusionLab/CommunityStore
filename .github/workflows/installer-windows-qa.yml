@@ -1,0 +1,82 @@
+name: Windows installer qualification
+
+on:
+  push:
+    branches: ['codex/installer-windows-qa*']
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: windows-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Build Windows setup
+        shell: pwsh
+        run: |
+          $compiler = Get-Command makensis -ErrorAction SilentlyContinue
+          if (-not $compiler) {
+            $nsis = Join-Path ${env:ProgramFiles(x86)} 'NSIS'
+            if (-not (Test-Path (Join-Path $nsis 'makensis.exe'))) {
+              choco install nsis --yes --no-progress
+              if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+            }
+            $env:PATH = "$nsis;$env:PATH"
+          }
+          go version
+          python scripts/build_installers.py --platform windows --output dist/verified
+      - name: Run the release EXE and compare every installed file with public v1.0.0
+        shell: python
+        run: |
+          import hashlib, json, os, shutil, subprocess, tempfile, urllib.request, zipfile
+          from pathlib import Path
+          from io import BytesIO
+          def digest(data):
+              return hashlib.sha256(data).hexdigest()
+          build = Path('dist/verified')
+          exe = build / 'CommunityStore-Windows-Setup.exe'
+          exe_digest = digest(exe.read_bytes())
+          assert exe_digest == (build / (exe.name + '.sha256')).read_text().split()[0]
+          url = 'https://github.com/4FusionLab/CommunityStore/releases/download/v1.0.0/CommunityStore-1.0.0.zip'
+          with urllib.request.urlopen(url, timeout=60) as resp:
+              data = resp.read()
+          expected_zip = '4f843a0a6fb19c85501f39c1e70c672de8a0c242773e672facc2abe23a362e2a'
+          assert digest(data) == expected_zip
+          qa = Path(tempfile.mkdtemp(prefix='Community Store QA ', dir=os.environ['RUNNER_TEMP']))
+          profile = qa / 'Roaming'
+          profile.mkdir()
+          env = {**os.environ, 'APPDATA': str(profile)}
+          def launch(name):
+              copy = qa / name
+              shutil.copyfile(exe, copy)
+              result = subprocess.run([str(copy), '/S'], env=env, timeout=120)
+              assert result.returncode == 0, result.returncode
+          launch('Initial setup.exe')
+          target = profile / 'Autodesk' / 'FusionAddins'
+          files = {p.relative_to(target).as_posix(): p for p in target.rglob('*') if p.is_file()}
+          with zipfile.ZipFile(BytesIO(data)) as archive:
+              assert set(files) == set(archive.namelist()), sorted(files)
+              assert all(path.read_bytes() == archive.read(name) for name, path in files.items())
+          manifest = json.loads(files['CommunityStore/CommunityStore.manifest'].read_bytes())
+          assert manifest['id'] == '08b17a72-c1c4-4c56-b7b0-eeddf157ee43' and manifest['version'] == '1.0.0'
+          assert manifest['runOnStartup'] is True and 'windows' in manifest['supportedOS'].split('|')
+          assert 'CommunityStore/CommunityStore.py' in files
+          probe = files['CommunityStore/CommunityStore.py']
+          probe.write_bytes(probe.read_bytes() + b'\n# Local edit used by installer QA\n')
+          modified = digest(probe.read_bytes())
+          launch('Repeated setup.exe')
+          assert digest(probe.read_bytes()) == modified
+          assert digest(exe.read_bytes()) == exe_digest
+          print(f'Windows EXE SHA-256 {exe_digest}, ZIP SHA-256 {expected_zip}, {len(files)} installed files match, repeat preserved user edit')
+      - name: Retain the tested bytes and their checksum
+        uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: verified-windows-installer
+          path: dist/verified/*
+          if-no-files-found: error
+          retention-days: 7

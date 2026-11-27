@@ -1,4 +1,5 @@
 """Fusion palette and main-thread adapter for the Community Store."""
+import importlib
 import json
 import os
 import queue
@@ -12,6 +13,7 @@ import webbrowser
 from concurrent.futures import ThreadPoolExecutor, as_completed
 from datetime import datetime, timezone
 from pathlib import Path
+from types import ModuleType
 from urllib.parse import quote, urlsplit
 from uuid import uuid4
 
@@ -36,6 +38,40 @@ PALETTE_ACTIONS = frozenset((
     "applyBatch", "startup", "remove", "openRemovalArchive", "reload", "enable", "disable", "install", "exportLogs",
 ))
 _controller = None
+
+
+def refresh_python_imports(folder, replacement=None):
+    """Forget a stopped add-in's Python dependencies before loading different code."""
+    roots = (folder, folder.resolve())
+
+    def relative(path):
+        if isinstance(path, str) and os.path.isabs(path):
+            candidate = Path(path)
+            for root in roots:
+                if candidate.is_relative_to(root):
+                    return candidate.relative_to(root)
+        return None
+
+    for name, module in sys.modules.copy().items():
+        if not isinstance(module, ModuleType) or name.startswith("__main__%"):
+            continue  # Fusion manages its own entry module.
+        origin = vars(module).get("__file__")
+        if (isinstance(origin, str) and origin.endswith((".py", ".pyc"))
+                and relative(origin) is not None and sys.modules.get(name) is module):
+            del sys.modules[name]
+
+    # Add-ins can put their own directories on sys.path for absolute imports.
+    # Redirect those entries when adopting a linked installation into the Store.
+    if replacement != folder:
+        for index in reversed(range(len(sys.path))):
+            suffix = relative(sys.path[index])
+            if suffix is not None:
+                destination = str(replacement / suffix) if replacement else None
+                if destination is None or destination in sys.path:
+                    del sys.path[index]
+                else:
+                    sys.path[index] = destination
+    importlib.invalidate_caches()
 
 
 class Receive(adsk.core.HTMLEventHandler):
@@ -1775,6 +1811,8 @@ class Store:
                 if registered and registered.isValid and (not old or moving):
                     registered.isVisible = False
                 if installed:
+                    if filename.lower().endswith(".py"):
+                        refresh_python_imports(target, old_folder)
                     target.rename(work / "failed-package")
                     replacement_present = False
                 if backup and backup.exists():
@@ -1890,6 +1928,8 @@ class Store:
                 self.addin_root.mkdir(parents=True, exist_ok=True)
                 package.rename(target)
                 installed = True
+                if old_folder and Path(live["entry"]).suffix.lower() == ".py":
+                    refresh_python_imports(old_folder, target)
                 script = self.app.scripts.itemByPath(str(target)) or self.app.scripts.addExisting(str(target))
                 if not script or inventory.canonical_path(script.folder) != inventory.canonical_path(target):
                     raise RuntimeError(Message("runtime.register_failed"))

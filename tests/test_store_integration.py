@@ -843,6 +843,45 @@ class StoreIntegrationTests(unittest.TestCase):
                 target.rename(self.root / f"restored-{interrupted_after_replace}")
                 self.github.versions[repo] = "1.0.0"
 
+    def test_hot_update_and_rollback_import_helpers_from_the_active_package(self):
+        repo = "4FusionLab/ExporTo"
+        name = "store_fixture_hot_update_helper"
+        self.start()
+        self.check()
+        installed, = self.install(repo)["installed"]
+        target = Path(installed["folder"])
+        (target / f"{name}.py").write_text("version = '1.0.0'")
+        self.enterContext(patch.object(sys, "path", [str(target), *sys.path]))
+        self.addCleanup(sys.modules.pop, name, None)
+        self.assertEqual(importlib.import_module(name).version, "1.0.0")
+
+        archive = self.github.archive
+
+        def with_helper(repository, version):
+            data = io.BytesIO(archive(repository, version))
+            with zipfile.ZipFile(data, "a") as package:
+                package.writestr(f"ExporTo/{name}.py", f"version = {version!r}")
+            return data.getvalue()
+
+        self.github.archive = with_helper
+        self.github.versions[repo] = "2.0.0"
+        self.check()
+        script = self.scripts.itemByPath(str(target))
+        started = []
+
+        def run():
+            started.append(importlib.import_module(name).version)
+            script.isRunning = True
+            return True
+
+        script.run = run
+        preview = self.send("preview", mode="all")["preview"]
+        self.send("applyBatch", token=preview["token"])
+        with patch.object(self.store, "set_preferences", side_effect=OSError("Cannot save settings")):
+            self.drain()
+        self.assertEqual(started, ["2.0.0", "1.0.0"])
+        self.assertEqual(self.store.batch_results[0]["status"], "failed")
+
     def test_managed_update_preserves_original_when_backup_path_is_redirected(self):
         repo = "4FusionLab/ExporTo"
         self.start()
